@@ -6,3 +6,4 @@ Use the following links to navigate to Exercise pages for `Week2` and `Week3`.
 
 - [Week 2](Lessons/Week2.md)
 - [Week 3](Lessons/Week3.md)
+
