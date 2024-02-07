@@ -72,6 +72,50 @@ Scroll down to the Arguments section, please go through the description of each 
 You may use the `?` at any point in the R console followed by the name of the function to get help. e.g. ?RunPCA etc. 
 
 
+
+Using the h5.list, we will now create seurat objects for each sample. 
+
+```
+# create seurat objects RNA assay ----
+sobj.list = lapply(h5.list, FUN = function(x){
+  
+  x = CreateSeuratObject(counts = x, min.cells = 3, min.features = 200, assay = "RNA")
+  
+})
+
+```
+
+Now if we run the following code, you may notice that each cellbarcode (regardless of the sample it belongs to) is associated with a generic `SeuratProject` identifier.
+```
+sobj.list[[1]]$orig.ident %>% head()
+sobj.list[[2]]$orig.ident %>% head()
+sobj.list[[3]]$orig.ident %>% head()
+```
+
+We do not want that. We want each cell barcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
+
+```
+# by default SampleName in a seurat object will be named to 'SeuratProject', we will use the following loop to overwrite that and rename with the sampleID
+
+for (i in 1:length(sobj.list)) {
+  sobj.list[[i]]$orig.ident <- names(sobj.list)[i]  
+}
+
+
+```
+
+Now we can run the same code chunk again and see how the results have changed.
+
+```
+sobj.list[[1]]$orig.ident %>% head()
+sobj.list[[2]]$orig.ident %>% head()
+sobj.list[[3]]$orig.ident %>% head()
+```
+
+
+
+
+
 <hr>
 
 <details>
