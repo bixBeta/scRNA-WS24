@@ -25,7 +25,8 @@ To get started, we will need the path where the 10x outputs are present. Copy an
 
 ```
 # this assumes your 10x data is in Rstudio_Project/10X_Data/sampleName/outs/ directory 
-# edit this path as needed 
+# edit the path argument as needed 
+
 dirs = list.files(path = "10X_Data", full.names = T, pattern = ".h5$", recursive = T)
 
 # run dirs to confirm the path of h5 filtered matrices
@@ -46,15 +47,15 @@ library(dplyr)
 ```
 
 
-Once all libraries are needed, we will create a seurat object from all samples using `Seurat::Read10X_h5()` and `SeuratObject::CreateSeuratObject()` functions. 
+Once all libraries are loaded, we will create a seurat object from all samples using `Seurat::Read10X_h5()` and `SeuratObject::CreateSeuratObject()` functions. 
 
 ```
-# first we initialize an empty R list object and load in all h5 matrices per sample as a list
+# first we initialize an empty R list object and load in all h5 matrices per sample as a list using a for loop 
 
+# initialize an empty list 
 h5.list = list()
 
-# here we use a for loop over total number of samples (in this case 3) and storing the h5 matrices in our h5.list object
-
+# looping over total number of samples (in this case 3) and storing the h5 matrices in our h5.list object
 for (i in 1:length(dirs)) {
   h5.list[[i]] <- Read10X_h5(filename = dirs[i] )
   names(h5.list)[[i]] <- strsplit(dirname(dirs[i]), split = "/")[[1]][2]
@@ -67,8 +68,10 @@ for (i in 1:length(dirs)) {
 > [!Tip] 
 In R console type `?SeuratObject::CreateSeuratObject()` <br>
 Here you will find a list of all available parameters that the CreateSeuratObject uses. In the Arguments section, please go through the description to understand what each argument/parameter means. 
-You may use the `?` at any point in the R console followed by the name of the function to get help. e.g. ?RunPCA() etc. 
+You may use the `?` at any point in the R console followed by the name of the function to get help. e.g. ?RunPCA etc. 
 
+
+<hr>
 
 <details>
   <summary> For Advanced Users </summary>
