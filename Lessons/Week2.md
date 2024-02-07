@@ -92,6 +92,10 @@ sobj.list[[2]]$orig.ident %>% head()
 sobj.list[[3]]$orig.ident %>% head()
 ```
 
+![before](../images/i1.png)
+
+<br>
+
 We do not want that. We want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
 
 ```
@@ -113,9 +117,9 @@ sobj.list[[2]]$orig.ident %>% head()
 sobj.list[[3]]$orig.ident %>% head()
 ```
 
+![after](../images/i2.png)
 
-![alt text](images/i1.png)
-
+<br>
 
 <hr>
 
