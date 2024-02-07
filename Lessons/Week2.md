@@ -152,7 +152,11 @@ saveRDS(sobj, "01_sobj.merged.RDS")
 ```
 
 
+# 2. Initial QC
 
+>[!Notes]
+Any saved RDS objects can be re-imported in R using the `readRDS` function.
+e.g. sobj <- readRDS("01_sobj.merged.RDS")
 
 <hr>
 
