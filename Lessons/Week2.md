@@ -15,7 +15,7 @@ The count matrices produced by cellranger are located in the `./sampleName/outs/
 <br>
 
 
-### 1. Create Seurat Object
+# 1. Create Seurat Object
 
 In an Rstudio session create a new project.
 
@@ -92,10 +92,11 @@ sobj.list[[2]]$orig.ident %>% head()
 sobj.list[[3]]$orig.ident %>% head()
 ```
 
-We do not want that. We want each cell barcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
+We do not want that. We want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
 
 ```
-# by default SampleName in a seurat object will be named to 'SeuratProject', we will use the following loop to overwrite that and rename with the sampleID
+# by default SampleName which is represented as the orig.ident metadata variable in a seurat object will be named to 'SeuratProject', 
+# we will use the following loop to overwrite that and rename with the sampleID
 
 for (i in 1:length(sobj.list)) {
   sobj.list[[i]]$orig.ident <- names(sobj.list)[i]  
@@ -104,7 +105,7 @@ for (i in 1:length(sobj.list)) {
 
 ```
 
-Now we can run the same code chunk again and see how the results have changed.
+Run the same code chunk again and see how the results have changed.
 
 ```
 sobj.list[[1]]$orig.ident %>% head()
