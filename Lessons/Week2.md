@@ -156,7 +156,7 @@ saveRDS(sobj, "01_sobj.merged.RDS")
 
 >[!Note]
 Any saved RDS objects can be re-imported in R using the `readRDS` function.
-e.g. sobj <- readRDS("01_sobj.merged.RDS")
+e.g. to reload previously saved seurat object one may use the following command <br> `sobj <- readRDS("01_sobj.merged.RDS")`
 
 <hr>
 
