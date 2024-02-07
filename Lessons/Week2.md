@@ -11,6 +11,9 @@ Conveniently, the output folders from cellranger are also available at the follo
 It is important to note that **cellranger** creates a new directory for each sample and there are many files/subfolders that are created within that directory.
 The count matrices produced by cellranger are located in the `./sampleName/outs/` directory. <br> For Seurat analysis we will be using the file named `filtered_feature_bc_matrix.h5` for each sample.
 
+<hr>
+<br>
+
 
 ### 1. Create Seurat Object
 
@@ -60,11 +63,14 @@ for (i in 1:length(dirs)) {
 
 ```
 
+
+> [!Tip] 
+In R console type `?SeuratObject::CreateSeuratObject()` <br>
+Here you will find a list of all available parameters that the CreateSeuratObject uses. In the Arguments section, please go through the description to understand what each argument/parameter means. 
+You may use the `?` at any point in the R console followed by the name of the function to get help. e.g. ?RunPCA() etc. 
+
+
 <details>
   <summary> For Advanced Users </summary>
-  In R console type ?SeuratObject::CreateSeuratObject()` <br>
-  Here you will find a list of all available parameters that the CreateSeuratObject uses. In the Arguments section, please go through the description to understand what each argument/parameter means. 
-  > [!Tip] 
-  You may use the `?` at any point in the R console followed by the name of the function to get help. e.g. ?RunPCA() etc. 
-  
+
 </details>
