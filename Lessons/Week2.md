@@ -1,6 +1,6 @@
 > [!Tip]
 Useful Links:
-[Seurat Version 5 Cheet Sheet](https://satijalab.org/seurat/articles/essential_commands)
+[Seurat Version 5 Command Cheat Sheet](https://satijalab.org/seurat/articles/essential_commands)
 
 
 ### Cellranger Output
