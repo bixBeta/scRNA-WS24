@@ -68,7 +68,7 @@ for (i in 1:length(dirs)) {
 > [!Tip] 
 In R console type `?SeuratObject::CreateSeuratObject()` <br>
 In the Help panel in RStudio, you will find a list of all available parameters that CreateSeuratObject uses. <br>
-Scroll down to the Arguments section, please go through the description of each argument to understand what each argument/parameter means. <br>
+Scroll down to the Arguments section, please go through the description of each argument to understand what each argument/parameter does. <br>
 You may use the `?` at any point in the R console followed by the name of the function to get help. e.g. ?RunPCA etc. 
 ![after](../images/m1.png)
 
@@ -95,7 +95,7 @@ sobj.list[[3]]$orig.ident %>% head()
 
 ![before](../images/i1.png)
 
-<br>
+
 
 We do not want that. We want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
 
@@ -121,6 +121,38 @@ sobj.list[[3]]$orig.ident %>% head()
 ![after](../images/i2.png)
 
 <br>
+
+
+Now we will add some other useful metadata to each seurat object and merge all 3 seurat objects into 1 object that we will perform all of the downstream analysis on.  
+
+
+```
+# add % Mito ----
+sobj.list = lapply(sobj.list, function(x){
+  AddMetaData(object = x, metadata = PercentageFeatureSet(x, "^MT-"), col.name = "percent.mt")
+})
+
+# add log10GenesPerUMI ----
+sobj.list = lapply(sobj.list, function(x){
+  AddMetaData(object = x, metadata = log10(x$nFeature_RNA) / log10(x$nCount_RNA), col.name = "log10GenesPerUMI")
+})
+```
+
+## 1.1 Merge Seurat Object
+
+```
+sobj <- merge(x = sobj.list[[1]], y = sobj.list[2:length(sobj.list)], merge.data=TRUE)
+
+```
+
+Save the merged seurat object for future access. 
+
+```
+saveRDS(sobj, "01_sobj.merged.RDS")
+```
+
+
+
 
 <hr>
 
