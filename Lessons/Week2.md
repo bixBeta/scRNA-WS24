@@ -114,7 +114,7 @@ sobj.list[[3]]$orig.ident %>% head()
 ```
 
 
-
+![alt text](images/i1.png)
 
 
 <hr>
