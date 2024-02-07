@@ -67,7 +67,7 @@ for (i in 1:length(dirs)) {
 
 > [!Tip] 
 In R console type `?SeuratObject::CreateSeuratObject()` <br>
-In the Help pannel in RStudio, you will find a list of all available parameters that CreateSeuratObject uses. <br>
+In the Help panel in RStudio, you will find a list of all available parameters that CreateSeuratObject uses. <br>
 Scroll down to the Arguments section, please go through the description of each argument to understand what each argument/parameter means. <br>
 You may use the `?` at any point in the R console followed by the name of the function to get help. e.g. ?RunPCA etc. 
 
