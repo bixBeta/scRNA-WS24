@@ -124,12 +124,14 @@ sobj.list[[3]]$orig.ident %>% head()
 <br>
 
 
-Let us add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
+## 1.1 Add MetaData
+
+Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
 The first metric that we will add is the percent.mt. Unless it is part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often referred to as dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
 
-Before we can set up a threshold, for each cell we must first calculate the proportion of reads mapping to mitochondrial genes. (One can also use a similar way to set up thresholds for chloroplast genes (for plant species), another example would be ribosomal genes). 
-Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate the proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the data-set. Since our goal is to calculate the proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"` <br>
+Before we can set up a threshold, for each cell we must first calculate the proportion of reads mapping to mitochondrial genes. (One can also use a similar approach to set up thresholds for chloroplast genes (for plant species), another example would be ribosomal genes). <br>
+Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate the proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the dataset. Since our goal is to calculate proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"` <br>
 For each cell, the function takes the sum of counts across all genes (features) belonging to the "MT-" set, and then divides by the count sum for all genes (features). This value is multiplied by 100 to obtain a percentage value.
 
 
@@ -138,14 +140,20 @@ For each cell, the function takes the sum of counts across all genes (features) 
 sobj.list = lapply(sobj.list, function(x){
   AddMetaData(object = x, metadata = PercentageFeatureSet(x, "^MT-"), col.name = "percent.mt")
 })
+```
 
+Another useful metric to add is the NoveltyScore for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later)
+
+```
 # add log10GenesPerUMI ----
 sobj.list = lapply(sobj.list, function(x){
   AddMetaData(object = x, metadata = log10(x$nFeature_RNA) / log10(x$nCount_RNA), col.name = "log10GenesPerUMI")
 })
 ```
 
-## 1.1 Merge Seurat Object
+## 1.2 Merge Seurat Object
+
+To perform further analysis with seurat, another step that is required for a multi-sample project is to merge all of our seurat objects into one main seurat object. <br> To acheive this, we can use the merge function and merge all 3 seurat objects stored in our sobj.list into one. 
 
 ```
 sobj <- merge(x = sobj.list[[1]], y = sobj.list[2:length(sobj.list)], merge.data=TRUE)
