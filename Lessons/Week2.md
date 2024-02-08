@@ -173,7 +173,9 @@ VlnPlot(sobj, features = c("nCount_RNA", "nFeature_RNA" , "log10GenesPerUMI", "p
 
 If you do not wish to display points/dots on the violin plot change `pt.size = 0`
 
+The violin plot should look like the following:
 
+![violin](../images.violin.png)
 
 
 <hr>
