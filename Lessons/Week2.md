@@ -34,7 +34,7 @@ dirs
 
 ```
 
-Use the following code chunk to load all the R libraries that are needed to run the analysis.
+Use the following code chunk to load all R libraries that are required to run the analysis.
 
 ```
 library(Seurat)
