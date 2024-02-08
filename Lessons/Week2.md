@@ -177,7 +177,7 @@ sobj.list = lapply(sobj.list, function(x){
 
 Now if we run the following code again, we will see the addition of two more columns that we created with the AddMetaData function in the previous commands. 
 
-``````
+```
 head(sobj.list[[1]]@meta.data)
 ```
 
