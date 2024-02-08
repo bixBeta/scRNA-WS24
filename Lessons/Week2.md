@@ -86,7 +86,7 @@ sobj.list = lapply(h5.list, FUN = function(x){
 
 ```
 
-Now if we run the following code, you may notice that each cellbarcode (regardless of the sample it belongs to) is associated with a generic `SeuratProject` identifier.
+If we run the following code, you may notice that each cellbarcode (regardless of the sample it belongs to) is associated with a generic `SeuratProject` identifier.
 ```
 sobj.list[[1]]$orig.ident %>% head()
 sobj.list[[2]]$orig.ident %>% head()
@@ -97,7 +97,8 @@ sobj.list[[3]]$orig.ident %>% head()
 
 
 
-We do not want that. We want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
+We do not want this as if we were to merge these seurat objects together, we will loose the cellbarcode --> sample linkage and therefore will not be able to identify barcodes that belong to a given sample/condition. <br>
+Therefore we want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
 
 ```
 # by default SampleName which is represented as the orig.ident metadata variable in a seurat object will be named to 'SeuratProject', 
@@ -123,7 +124,7 @@ sobj.list[[3]]$orig.ident %>% head()
 <br>
 
 
-Now we will add some other useful metadata to each seurat object and merge all 3 seurat objects into 1 object that we will perform all of the downstream analysis on.  
+Let us add some other useful metadata to each seurat object and merge all 3 seurat objects into 1 object that we will perform all of the downstream analysis on. These metrics will help us filter out noisey cells. 
 
 
 ```
@@ -157,6 +158,11 @@ saveRDS(sobj, "01_sobj.merged.RDS")
 >[!Note]
 Any saved RDS objects can be re-imported in R using the `readRDS` function.
 e.g. to reload previously saved seurat object one may use the following command <br> `sobj <- readRDS("01_sobj.merged.RDS")`
+
+
+We will first plot some violin plots and assess how the data looks. 
+
+
 
 <hr>
 
