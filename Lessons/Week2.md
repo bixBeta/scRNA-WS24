@@ -126,14 +126,25 @@ sobj.list[[3]]$orig.ident %>% head()
 
 ## 1.1 Add MetaData
 
+When we create a seurat object, there are some slots that are automatically populated within the object. One of these slots is the `meta.data` slot. <br>
+To access this meta.data slot we use the following syntax: `sobj@meta.data`. Lets use the following code to look at the first few lines of the meta.data slot. 
+
+```
+head(sobj@meta.data)
+
+```
+
+![meta1](../images/meta.png)
+
+
 Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
 The first metric that we will add is the percent.mt. Unless it is part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often referred to as dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
 
 Before we can set up a threshold, for each cell we must first calculate the proportion of reads mapping to mitochondrial genes. 
-> (One can also use a similar approach to set up thresholds for chloroplast genes (for plant species), another example would be ribosomal genes). 
+> One may also use a similar approach to set up thresholds for chloroplast genes (for plant species), another example would be to calculate proportions for ribosomal genes. 
 
-Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate the proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the dataset. Since our goal is to calculate proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"` <br>
+Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate these proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the dataset. Since our goal is to calculate proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"` <br>
 For each cell, the function takes the sum of counts across all genes (features) belonging to the "MT-" set, and then divides by the count sum for all genes (features). This value is multiplied by 100 to obtain a percentage value.
 
 
@@ -144,7 +155,7 @@ sobj.list = lapply(sobj.list, function(x){
 })
 ```
 
-Another useful metric to add is the NoveltyScore for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later)
+Another useful metric to add is the Novelty Score for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later)
 
 ```
 # add log10GenesPerUMI ----
