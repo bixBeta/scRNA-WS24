@@ -24,7 +24,7 @@ To get started, we will need a path where the 10x outputs are accessible. Use th
 
 
 ```
-# this assumes your 10x data is in Rstudio_Project/10X_Data/sampleName/outs/ directory 
+# this assumes your 10x data is in Rstudio_Project_Directory/10X_Data/sampleName/outs/ directory 
 # edit the path argument as needed 
 
 dirs = list.files(path = "10X_Data", full.names = T, pattern = ".h5$", recursive = T)
