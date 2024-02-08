@@ -152,7 +152,7 @@ Let us now add some other useful metadata to each seurat object as this will hel
 
 The first metric that we will add is the percent.mt. Unless it is part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often referred to as dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
 
-Before we can set up a threshold, for each cell we must first calculate the proportion of reads mapping to mitochondrial genes. 
+To do this we can first calculate the proportion of reads mapping to mitochondrial genes. 
 > One may also use a similar approach to set up thresholds for chloroplast genes (for plant species), another example would be to calculate proportions for ribosomal genes. 
 
 Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate these proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the dataset. Since our goal is to calculate proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"` <br>
