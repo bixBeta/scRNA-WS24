@@ -20,7 +20,7 @@ The count matrices produced by cellranger are located in the `./sampleName/outs/
 In an Rstudio session create a new project.
 
 Create a new R script using the File --> New File --> Rscript or Shift/Cmd|Ctrl/N <br> 
-To get started, we will need a path where the 10x outputs are accessible. Use the following code chunk to populate the dirs variable:
+To get started, we will need a path from where the 10x outputs are accessible. Use the following code chunk to populate the dirs variable:
 
 
 ```
