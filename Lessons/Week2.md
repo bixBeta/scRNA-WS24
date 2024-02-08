@@ -126,13 +126,13 @@ sobj.list[[3]]$orig.ident %>% head()
 
 ## 1.1 Add MetaData
 
-When we create a seurat object, there are some slots that are automatically populated within the object. One of these slots is the `meta.data` slot. <br>
-To access this meta.data slot we use the following syntax: `sobj@meta.data`. Lets use the following code to look at the first few lines of the meta.data slot. 
+When we create a seurat object, there are some slots that are automatically populated within the object.<br> One of these slots is the `meta.data` slot. 
+To access this meta.data slot we use the following syntax: `sobj@meta.data`. Lets use the following code to look at the first few lines of the meta.data slot from one of our seurat objects. 
 
 ```
-head(sobj@meta.data)
-
+head(sobj.list[[1]]@meta.data)
 ```
+Also, try the above code by replacing the index value of 1 to 2 or 3. 
 
 ![meta1](../images/meta.png)
 
