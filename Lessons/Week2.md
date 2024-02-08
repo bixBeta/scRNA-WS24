@@ -97,7 +97,7 @@ sobj.list[[3]]$orig.ident %>% head()
 
 
 
-We do not want this as if we were to merge these seurat objects together, we will loose the cellbarcode --> sample linkage and therefore will not be able to identify barcodes that belong to a given sample/condition. <br>
+We do not want this because if we were to merge these seurat objects together, we will loose the cellbarcode --> sample linkage and therefore will not be able to identify barcodes that belong to a given sample/condition. <br>
 Therefore we want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
 
 ```
@@ -124,7 +124,13 @@ sobj.list[[3]]$orig.ident %>% head()
 <br>
 
 
-Let us add some other useful metadata to each seurat object and merge all 3 seurat objects into 1 object that we will perform all of the downstream analysis on. These metrics will help us filter out noisey cells. 
+Let us add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
+
+The first metric that we will add is the percent.mt. Unless it is part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often referred to as dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
+
+Before we can set up a threshold, for each cell we must first calculate the proportion of reads mapping to mitochondrial genes. (One can also use a similar way to set up thresholds for chloroplast genes (for plant species), another example would be ribosomal genes). 
+Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate the proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the data-set. Since our goal is to calculate the proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"` <br>
+For each cell, the function takes the sum of counts across all genes (features) belonging to the "MT-" set, and then divides by the count sum for all genes (features). This value is multiplied by 100 to obtain a percentage value.
 
 
 ```
@@ -176,6 +182,7 @@ If you do not wish to display points/dots on the violin plot change `pt.size = 0
 The violin plot should look like the following:
 
 ![violin](../images/violin.png)
+
 
 
 <hr>
