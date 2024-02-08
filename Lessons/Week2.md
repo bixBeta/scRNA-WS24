@@ -98,7 +98,7 @@ sobj.list[[3]]$orig.ident %>% head()
 
 
 We do not want this because when we merge these seurat objects together (more on this later: Section 1.2), we will loose the <br> cellbarcode --> sample info linkage, hence we will not be able to identify which barcodes came from which sample!!! <br>
-Therefore we want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
+Therefore we want each cellbarcode to be associated with the correct sample identifier.  To correct this we will use the following helper loop to fix the issue. 
 
 ```
 # by default SampleName which is represented as the orig.ident metadata variable in a seurat object will be named to 'SeuratProject', 
