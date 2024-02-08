@@ -97,7 +97,7 @@ sobj.list[[3]]$orig.ident %>% head()
 
 
 
-We do not want this because when we merge these seurat objects together (more on this later), we will loose the cellbarcode --> sample info linkage, hence we will not be able to identify barcodes that belong to a given sample/condition. <br>
+We do not want this because when we merge these seurat objects together (more on this later: Section 1.2), we will loose the cellbarcode --> sample info linkage, hence we will not be able to identify barcodes that belong to a given sample/condition. <br>
 Therefore we want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
 
 ```
@@ -146,7 +146,7 @@ These three columns are:
 
 <br>
 
-For our initial QC, we will mostly use the meta.data slot. (more on this later)
+For our initial QC, we will mostly use the meta.data slot. (more on this later: Section 2)
 
 Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
@@ -166,7 +166,7 @@ sobj.list = lapply(sobj.list, function(x){
 })
 ```
 
-Another useful metric to add is the Novelty Score for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later)
+Another useful metric to add is the Novelty Score for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later: Section 2)
 
 ```
 # add log10GenesPerUMI ----
