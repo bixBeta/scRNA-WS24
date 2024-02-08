@@ -162,6 +162,17 @@ e.g. to reload previously saved seurat object one may use the following command 
 
 We will first plot some violin plots and assess how the data looks. 
 
+To plot a violin plot using seurat use the following code chunk:
+
+```
+
+VlnPlot(sobj, features = c("nCount_RNA", "nFeature_RNA" , "log10GenesPerUMI", "percent.mt"), pt.size = 0.1, group.by = "orig.ident", ncol = 4)
+
+```
+
+If you do not want to display points/dots on the violin plot change `pt.size = 0`
+
+
 
 
 <hr>
