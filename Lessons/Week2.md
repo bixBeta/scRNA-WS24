@@ -136,6 +136,13 @@ Also, try the above code by replacing the index value of 1 to 2 or 3.
 
 ![meta1](../images/meta.png)
 
+By default, one will always see three columns whose values are mapped to each cellbarcode in a given seurat object. 
+
+These three columns are:
+  - `orig.ident`    : this column will contain the sample identity
+  - `nCount_RNA`    : this column represents the number of UMIs per cell
+  - `nFeature_RNA`  : this column represents the number of genes detected per cell
+
 
 Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
