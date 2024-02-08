@@ -144,6 +144,10 @@ These three columns are:
   - `nFeature_RNA`  : this column represents the number of genes detected per cell
 
 
+<br>
+
+For our initial QC, we will mostly use the meta.data slot. (more on this later)
+
 Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
 The first metric that we will add is the percent.mt. Unless it is part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often referred to as dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
@@ -170,6 +174,14 @@ sobj.list = lapply(sobj.list, function(x){
   AddMetaData(object = x, metadata = log10(x$nFeature_RNA) / log10(x$nCount_RNA), col.name = "log10GenesPerUMI")
 })
 ```
+
+Now if we run the following code again, we will see the addition of two more columns that we created with the AddMetaData function in the previous commands. 
+
+``````
+head(sobj.list[[1]]@meta.data)
+```
+
+![meta1](../images/meta2.png)
 
 ## 1.2 Merge Seurat Object
 
