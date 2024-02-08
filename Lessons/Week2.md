@@ -97,7 +97,7 @@ sobj.list[[3]]$orig.ident %>% head()
 
 
 
-We do not want this because when we merge these seurat objects together (more on this later: Section 1.2), we will loose the cellbarcode --> sample info linkage, hence we will not be able to identify barcodes that belong to a given sample/condition. <br>
+We do not want this because when we merge these seurat objects together (more on this later: Section 1.2), we will loose the <br> cellbarcode --> sample info linkage, hence we will not be able to identify barcodes that belong to a given sample/condition. <br>
 Therefore we want each cellbarcode to be associated with the correct sample it came from.  To correct this we will use the following helper loop to fix the issue. 
 
 ```
