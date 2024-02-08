@@ -191,7 +191,6 @@ To perform further analysis with seurat, another major step that is required for
 
 ```
 sobj <- merge(x = sobj.list[[1]], y = sobj.list[2:length(sobj.list)], merge.data=TRUE)
-
 ```
 
 Save the merged seurat object for future access. 
@@ -208,15 +207,12 @@ Any saved RDS objects can be re-imported in R using the `readRDS` function.
 e.g. to reload previously saved seurat object one may use the following command <br> `sobj <- readRDS("01_sobj.merged.RDS")`
 
 
-We will first plot some violin plots and assess how the data looks. 
+We will first plot some violin plots and assess how the data looks. Notice that in the features argument of VlnPlot code chunk, we are using all of our meta.data columns. 
 
-To plot a violin plot using seurat use the following code chunk:
 
 ```
-
 VlnPlot(sobj, features = c("nCount_RNA", "nFeature_RNA" , "log10GenesPerUMI", "percent.mt"),
     pt.size = 0.1, group.by = "orig.ident", ncol = 4)
-
 ```
 
 If you do not wish to display points/dots on the violin plot change `pt.size = 0`
