@@ -281,11 +281,11 @@ https://www.10xgenomics.com/support/software/loupe-browser/latest/tutorials/assa
 
 
 ```
-cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=/workdir/qisun/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/qisun/cellranger/IgG1d  --localcores=8 --localmem=24
+cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=/workdir/$USER/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/$USER/cellranger/IgG1d  --localcores=8 --localmem=24
 
-cellranger count --id=run_IgG4 --sample=IgG4 --transcriptome=/workdir/qisun/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/qisun/cellranger/IgG4  --localcores=8 --localmem=24
+cellranger count --id=run_IgG4 --sample=IgG4 --transcriptome=/workdir/$USER/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/$USER/cellranger/IgG4  --localcores=8 --localmem=24
 
-cellranger count --id=run_UT --sample=UT --transcriptome=/workdir/qisun/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/qisun/cellranger/UT  --localcores=8 --localmem=24
+cellranger count --id=run_UT --sample=UT --transcriptome=/workdir/$USER/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/$USER/cellranger/UT  --localcores=8 --localmem=24
 ```
 
 ###### Notes:
