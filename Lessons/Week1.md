@@ -21,7 +21,7 @@ cp -r /workdir/sc_workshop_2024/cellranger .
 + `mkdir` make directory
 + `$USER` replace with your netid (i.e. BioHPC username)
 + `cd` change directory
-+ `cp -r` copy directory and all of its contents to '.' (dot = here, your current location)
++ `cp -r` copy directory and all of its contents to `.` (dot = here, your current location)
 
 ##### A few more examples:
 
