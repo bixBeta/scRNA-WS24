@@ -271,7 +271,7 @@ https://www.10xgenomics.com/support/software/loupe-browser/latest/tutorials/assa
 
 #### 5. Things to take into consideration when working with real data
 
-- It could take a few hours to process each set of real data files. You will need to run cellranger with `nohup ` or in a persistent "screen" session;
+- It could take a few hours to process each set of real data files. You will need to run cellranger in a persistent "screen" session;
 
 - Most likely you would need to run cellranger on multiple samples. Some of the BioHPC servers (large memory gen2) have >100 cpu cores, and there is no performance benefit to run cellranger on a single sample with >32 CPU cores.  You would want to run the jobs in parallel to use the all the available CPU cores.
  
@@ -292,15 +292,8 @@ cellranger count --id=run_UT --sample=UT --transcriptome=/workdir/$USER/cellrang
 + This code uses the full path for the reference index (`--transcriptome`) and fastq location (`--fastqs=`), allowing the script to be run from any directory.
 + The output directories (named as `--id=`) will be created in the directory that you run the script.
 
-##### 5.2a Option 1: Run the script in the background with `nohup`.
 
-```
-export PATH=/programs/cellranger-7.2.0:$PATH
-nohup sh run.sh &
-```
-
-
-##### 5.2b Option 2: Run the script in "screen" persistent session.
+##### 5.2a Option 2: Run the script in "screen" persistent session.
 
 Tutorial for "screen" can be found [here](https://biohpc.cornell.edu/lab/doc/Linux_exercise_part2.pdf).
 
