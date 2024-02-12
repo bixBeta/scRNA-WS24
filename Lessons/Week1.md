@@ -86,7 +86,6 @@ This directory was downloaded from 10x Genomics as a pre-indexed reference genom
 
 ##### 3.1 Run "cellranger count" on a singleplex data set.
 
-<b> JKG comment for Qi: I would recommend that we use 'nohup' and send to the background – here and in step 5.2 instead of recommending screen (for beginners).</b>
 
 ```
 cd /workdir/$USER/cellranger
@@ -97,8 +96,6 @@ cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=refdata-gex-GRCh3
 
 ```
 
-<b> JKG comment: I cannot get this details block to fold correctly!
-</b>
 
 <details>
  <summary>Expand for Linux details</summary>
@@ -167,8 +164,6 @@ Or use a text editor such as `nano`.
 cellranger multi --id=run_plex --csv=cellplex/config.csv --localcores=8 --localmem=40
 ```
 
-<b> JKG comment: I cannot get this details block to fold correctly!
-</b>
 <details>
 <summary>Expand for Linux details</summary>
 
@@ -267,8 +262,7 @@ https://www.10xgenomics.com/support/software/loupe-browser/latest/tutorials/assa
 
 ##### 5.1 Create a batch script file using a text editor (e.g. Notepad++ on Windows, or BBEdit on Mac, or nano on Linux), with the following content. Upload to the /workdir/$USER/cellranger directory of your assigned server
 
-<b>JKG comment to Qi: code block below contains your /workdir/qisun/ – dont we need to include a note to update this (and replace qisun here with $USER)
-</b>
+
 ```
 cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=/workdir/qisun/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/qisun/cellranger/IgG1d  --localcores=8 --localmem=24
 
