@@ -275,15 +275,8 @@ cellranger count --id=run_UT --sample=UT --transcriptome=/workdir/qisun/cellrang
 + This code uses the full path for the reference index (`--transcriptome`) and fastq location (`--fastqs=`), allowing the script to be run from any directory.
 + The output directories (named as `--id=`) will be created in the directory that you run the script.
 
-##### 5.2a Option 1: Run the script in the background with `nohup`.
 
-```
-export PATH=/programs/cellranger-7.2.0:$PATH
-nohup sh run.sh &
-```
-
-
-##### 5.2b Option 2: Run the script in "screen" persistent session.
+##### 5.2 Run the script in "screen" persistent session.
 
 Tutorial for "screen" can be found [here](https://biohpc.cornell.edu/lab/doc/Linux_exercise_part2.pdf).
 
