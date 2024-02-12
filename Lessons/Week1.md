@@ -293,7 +293,7 @@ cellranger count --id=run_UT --sample=UT --transcriptome=/workdir/$USER/cellrang
 + The output directories (named as `--id=`) will be created in the directory that you run the script.
 
 
-##### 5.2a Option 2: Run the script in "screen" persistent session.
+##### 5.2 Run the script in "screen" persistent session.
 
 Tutorial for "screen" can be found [here](https://biohpc.cornell.edu/lab/doc/Linux_exercise_part2.pdf).
 
