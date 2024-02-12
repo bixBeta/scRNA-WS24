@@ -154,7 +154,7 @@ Notes:
 
 ##### 3.2 Run "cellranger multi" on a multiplex data set
 
-3.2.1 Inspect and modify the cellplex/config.ori.csv file
+###### 3.2.1 Inspect and modify the cellplex/config.ori.csv file
 
 Replace all "xxxxx" with your BioHPC userID, and write the modified content to a new file config.csv.   You can use the LINUX sed command to do this.
 
@@ -172,7 +172,7 @@ cat cellplex/config.csv
 You can also use a text editor such as `nano` if you prefer.
 
 
-3.2.2 run "cellranger multi"
+###### 3.2.2 run "cellranger multi"
 
 ```
 cellranger multi --id=run_plex --csv=cellplex/config.csv --localcores=8 --localmem=40
@@ -204,7 +204,7 @@ Notes:
 
 ##### 3.3 Run "cellranger multi" on a multiplex data set with antibody capture
 
-3.3.1 Inspect and modify the cellplex_fb/config.ori.csv file
+###### 3.3.1 Inspect and modify the cellplex_fb/config.ori.csv file
 
 Replace all "xxxxx" with your BioHPC userID, and write the modified content to a new file config.csv.   You can use the LINUX sed command to do this.
 
@@ -218,7 +218,7 @@ sed "s/xxxxx/$USER/" cellplex_fb/config.ori.csv > cellplex_fb/config.csv
 cat cellplex_fb/config.csv
 ```
 
-3.3.2 run "cellranger multi"
+###### 3.3.2 run "cellranger multi"
 
 ```
 cellranger multi --id=run_plex_fb --csv=cellplex_fb/config.csv --localcores=8 --localmem=40
