@@ -5,12 +5,17 @@
 Find your assigned server name on [this website](https://biohpc.cornell.edu/ww/machines.aspx?i=165). Instructions to connect to the server can be found on [this page](https://biohpc.cornell.edu/lab/doc/remote_access.pdf).
 
 #### 2. Set up your working directory and copy data files for this exercise.
+<i>Use the 'copy' button in the top right corner of each code block to copy these commands.
+
+On Windows, use `shift-\` (hold down shift, then press the backslash key) to paste into the Linux terminal. On a Mac, use `command-v`.</i>
 
 ```
 mkdir /workdir/$USER
-
+```
+```
 cd /workdir/$USER
-
+```
+```
 cp -r /workdir/sc_workshop_2024/cellranger .
 ```
 
@@ -47,7 +52,14 @@ cp -r /workdir/sc_workshop_2024/cellranger .
 ##### Pay close attention to syntax and characters!
 + forward-slashes denote nested directory and file names
 + back-slashes have a very different meaning in Linux, they define 'escape' sequences to override literal character meanings. A common use of backslashes in this workshop will be to 'escape' the end-of-line character when code breaks across several lines. If the code is on a single line, the backslashes are not needed.
+
+
+##### For more help with how to run a program and optional parameters
++ try `program-name --help` on the command line.
++ go to the BioHPC [software page](https://biohpc.cornell.edu/lab/userguide.aspx?a=software)
+  
 </details>
+
 
 
 
@@ -80,7 +92,6 @@ This directory was downloaded from 10x Genomics as a pre-indexed reference genom
 + Try listing the contents of each directory
 + Add a new parameter to list all of the contents of all subdirectories in one command:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ls -lR`
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R = recursive list
 </details>
 
@@ -89,13 +100,13 @@ This directory was downloaded from 10x Genomics as a pre-indexed reference genom
 
 ```
 cd /workdir/$USER/cellranger
-
-export PATH=/programs/cellranger-7.2.0:$PATH
-
-cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=refdata-gex-GRCh38-2020-A --fastqs=IgG1d  --localcores=8 --localmem=24
-
 ```
-
+```
+export PATH=/programs/cellranger-7.2.0:$PATH
+```
+```
+cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=refdata-gex-GRCh38-2020-A --fastqs=IgG1d  --localcores=8 --localmem=24
+```
 
 <details>
  <summary>Expand for Linux details</summary>
@@ -110,9 +121,9 @@ cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=refdata-gex-GRCh3
 
 + cellranger count: starts the 'cellranger count' program, with the following parameters:
     + `--id=` &nbsp;&nbsp;&nbsp;&nbsp;name of the cellranger run <b>required</b>
-    + `--sample=` &nbsp;&nbsp;&nbsp;&nbsp;name of the sample to analyze (must match the beginning of the fastq filename) <b>required</b>
+    + `--sample=` &nbsp;&nbsp;&nbsp;&nbsp;name of the sample to analyze <b> required, must match the beginning of the fastq filename before the _S#_)</b>
     + `--transcriptome=` &nbsp;&nbsp;&nbsp;&nbsp;name of the directory containing the reference genome (index formatted for cellranger) <b>required</b>
-    + `--fastqs=` &nbsp;&nbsp;&nbsp;&nbsp;location of the directory containing the fastq files (which happens to be the same as the sample name) <b>required</b>
+    + `--fastqs=` &nbsp;&nbsp;&nbsp;&nbsp;must match the directory name containing the fastq files (which happens to be the same as the sample name) <b>required</b>
     + `--localcores=` &nbsp;&nbsp;&nbsp;&nbsp;number of CPUs (cores) that your run of cellranger can use <b>recommended for shared servers</b>
     + `--localmem=` &nbsp;&nbsp;&nbsp;&nbsp;amount of memory that your run of cellranger can use <b>recommended for shared servers</b>
 
@@ -149,18 +160,21 @@ Replace all "xxxxx" with your BioHPC userID, and write the modified content to a
 
 ```
 cd /workdir/$USER/cellranger
-
+```
+```
 sed "s/xxxxx/$USER/" cellplex/config.ori.csv > cellplex/config.csv
-
+```
+Confirm that the file is updated with your BioHPC userID with the `cat` command, which will display the file contents in your terminal.
+```
 cat cellplex/config.csv
 ```
 
-Or use a text editor such as `nano`.
+You can also use a text editor such as `nano` if you prefer.
+
 
 3.2.2 run "cellranger multi"
 
 ```
-
 cellranger multi --id=run_plex --csv=cellplex/config.csv --localcores=8 --localmem=40
 ```
 
@@ -175,7 +189,9 @@ cellranger multi --id=run_plex --csv=cellplex/config.csv --localcores=8 --localm
     + `--localmem=` &nbsp;&nbsp;&nbsp;&nbsp;amount of memory that your run of cellranger can use <b>recommended for shared servers</b>
 
 ##### How is running 'cellranger multi' different than 'cellranger count'?
-+ what information is in the config file?
++ What information is in the config file vs on the command line?
++ Use `ls` to view the output directories and contents. Try adding parameters (-l, -R) to investigate the output directory structure and files.
+
 
 </details>
 
@@ -186,7 +202,7 @@ Notes:
 
 
 
-##### 3.3 Run "cellranger count" on a multiplex data set with antibody capture
+##### 3.3 Run "cellranger multi" on a multiplex data set with antibody capture
 
 3.3.1 Inspect and modify the cellplex_fb/config.ori.csv file
 
@@ -194,16 +210,17 @@ Replace all "xxxxx" with your BioHPC userID, and write the modified content to a
 
 ```
 cd /workdir/$USER/cellranger
-
+```
+```
 sed "s/xxxxx/$USER/" cellplex_fb/config.ori.csv > cellplex_fb/config.csv
-
+```
+```
 cat cellplex_fb/config.csv
 ```
 
 3.3.2 run "cellranger multi"
 
 ```
-
 cellranger multi --id=run_plex_fb --csv=cellplex_fb/config.csv --localcores=8 --localmem=40
 ```
 
@@ -219,7 +236,7 @@ Notes:
 
 User Filezilla (or other sftp client) to download cellranger results from the original data.
 
-**Server**: your assigned server
+**Server**: your assigned server (cbsuxxxx.biohpc.cornell.edu)
 
 **Directory**: /workdir/sc_workshop_2024/GSE201999_output
 
@@ -275,8 +292,15 @@ cellranger count --id=run_UT --sample=UT --transcriptome=/workdir/qisun/cellrang
 + This code uses the full path for the reference index (`--transcriptome`) and fastq location (`--fastqs=`), allowing the script to be run from any directory.
 + The output directories (named as `--id=`) will be created in the directory that you run the script.
 
+##### 5.2a Option 1: Run the script in the background with `nohup`.
 
-##### 5.2 Run the script in "screen" persistent session.
+```
+export PATH=/programs/cellranger-7.2.0:$PATH
+nohup sh run.sh &
+```
+
+
+##### 5.2b Option 2: Run the script in "screen" persistent session.
 
 Tutorial for "screen" can be found [here](https://biohpc.cornell.edu/lab/doc/Linux_exercise_part2.pdf).
 
