@@ -278,7 +278,9 @@ https://www.10xgenomics.com/support/software/loupe-browser/latest/tutorials/assa
 **You can do this step later during the week.** 
 
 ##### 5.1 Create a batch script file using a text editor (e.g. Notepad++ on Windows, or BBEdit on Mac, or nano on Linux), with the following content. Upload to the /workdir/$USER/cellranger directory of your assigned server
-
+ 
+ In this step we will create a batch processing shell script file using our local computer/laptop and then upload the script back to the server where we can run it. 
+ In your local computer open a text editor and copy and paste the following code: 
 
 ```
 cellranger count --id=run_IgG1d --sample=IgG1d --transcriptome=/workdir/$USER/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/$USER/cellranger/IgG1d  --localcores=8 --localmem=24
@@ -287,6 +289,10 @@ cellranger count --id=run_IgG4 --sample=IgG4 --transcriptome=/workdir/$USER/cell
 
 cellranger count --id=run_UT --sample=UT --transcriptome=/workdir/$USER/cellranger/refdata-gex-GRCh38-2020-A --fastqs=/workdir/$USER/cellranger/UT  --localcores=8 --localmem=24
 ```
+Save this file and name it to `run.sh` while saving. 
+Now use FileZilla to upload this file that currently exists on your local machine to your server. 
+
+Advanced users can use `nano` or `vi` and copy and paste the code on the server. 
 
 ###### Notes:
 + This code uses the full path for the reference index (`--transcriptome`) and fastq location (`--fastqs=`), allowing the script to be run from any directory.
