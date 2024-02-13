@@ -5,7 +5,7 @@ Useful Links:
 
 ### Cellranger Output
 
-This week we start with the complete cellranger outputs that are conveniently available for us to download from the following path: `/path/to/cellranger-outs/`
+This week we will start with the complete cellranger outputs that are conveniently available for us to download from the following path: `/path/to/cellranger-outs/`
 Please note that in Week1, we were using a downsampled version of the dataset and we can ignore those outputs for this exercise. 
 
 It is important to note that **cellranger** creates a new directory for each sample and there are many files/subfolders that are created within that directory.
