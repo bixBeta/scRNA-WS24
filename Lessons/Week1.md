@@ -156,7 +156,7 @@ Notes:
 
 ###### 3.2.1 Inspect and modify the cellplex/config.ori.csv file
 
-Replace all "xxxxx" with your BioHPC userID, and write the modified content to a new file config.csv.   You can use the LINUX sed command to do this.
+Replace all instances of "xxxxx" in the config.ori.csv file with your BioHPC userID, and write the modified content to a new file config.csv.   You can use the LINUX sed command to replace the "xxxxx".
 
 ```
 cd /workdir/$USER/cellranger
