@@ -236,11 +236,11 @@ Notes:
 
 User Filezilla (or other sftp client) to download cellranger results from the original data.
 
-**Server**: your assigned server (cbsuxxxx.biohpc.cornell.edu)
-
-**Directory**: /workdir/sc_workshop_2024/GSE201999_output
+**Host**: your assigned server (cbsuxxxx.biohpc.cornell.edu)
 
 **Port:** 22
+
+**Remote site**: /workdir/sc_workshop_2024/GSE201999_output
 
 <b>Transfer the full directory with Filezilla to your laptop or computer</b>
 
