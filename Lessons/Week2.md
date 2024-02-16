@@ -235,9 +235,9 @@ The violin plot should look like one of the following: ( Top Panel = `pt.size = 
 ![violin](../images/violin-patchwork.png)
 
 <br>
-Even without the points, it can be sometimes hard to fine-tune the bottom tails of the distributions. To mitigate that, in addition to the violin plots, we can plot the density distributions with `ggplot2`. This will help us inform in choosing appropriate cut-offs for filtering the data. <br> 
+Even without the points, it can be sometimes hard to fine-tune the bottom tails of the distributions. To mitigate this (in addition to the violin plots), we can plot the density distributions for each sample with `ggplot2` . This will help us inform in choosing appropriate cut-offs for filtering the data. <br> 
 
-To do this, first lets save the meta.data slot of our seurat object to our local R environment. 
+To do this, first lets save the meta.data slot of our seurat object to a variable for easy access. 
 
 ```
 metadata <- sobj@meta.data
@@ -247,7 +247,7 @@ metadata <- sobj@meta.data
 This will create a new metadata variable in our R environment, and will populate this variable with the meta.data slot content. 
 
 ```
-# lets save all of our plots to a variable, and then we can plot them together (the last line in this code chunk)
+# lets save all of our plots to a variable, so we can plot them together in one plot (the last line in this code chunk) ----
 
 n_UMI = metadata %>% 
   ggplot(aes(color=orig.ident, x=nCount_RNA, fill= orig.ident)) + 
