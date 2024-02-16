@@ -230,7 +230,7 @@ VlnPlot(sobj, features = c("nCount_RNA", "nFeature_RNA" , "log10GenesPerUMI", "p
 
 If you do not wish to display points/dots on the violin plot change `pt.size = 0`
 
-The violin plot should look like one of the following: ( Top Panel = `point.size = 0.1` , Bottom Panel = `point.size = 0`)
+The violin plot should look like one of the following: ( Top Panel = `pt.size = 0.1` , Bottom Panel = `pt.size = 0`)
 
 ![violin](../images/violin-patchwork.png)
 
