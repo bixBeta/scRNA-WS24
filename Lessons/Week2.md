@@ -5,7 +5,7 @@ Useful Links:
 
 ### Cellranger Output
 
-This week we will start with the complete cellranger outputs that are conveniently available for us to download from the following path: `/path/to/cellranger-outs/`
+This week we will start with the complete cellranger outputs that are conveniently available for us to download from the following path: `/workdir/sc_workshop_2024/GSE201999_output`
 Please note that in Week1, we were using a downsampled version of the dataset and we can ignore those outputs for this exercise. 
 
 It is important to note that **cellranger** creates a new directory for each sample and there are many files/subfolders that are created within that directory.
@@ -19,6 +19,19 @@ The count matrices produced by cellranger are located in the `./sampleName/outs/
 
 In an Rstudio session create a new project.
 
+Before we get started, we must set up a working directory where all of our Seurat outputs will be stored. To do this we can use `mkdir` and `setwd` functions. 
+In the R console (bottom left pannel), type the following code:
+
+*Please replace `NetID` with your actual NetID before running the code:*
+```
+# this creates a new directory named Seurat in your workdir ----
+system("mkdir /workdir/NetID/Seurat")
+```
+
+```
+# this will set your Rstudio working directory to the Seurat directory that we created in the previous step ----
+setwd("/workdir/NetID/Seurat")
+```
 Create a new R script using the File --> New File --> Rscript or Shift/Cmd|Ctrl/N <br> 
 To get started, we will need a path from where the 10x outputs are accessible. Use the following code chunk to populate the dirs variable:
 
@@ -27,7 +40,7 @@ To get started, we will need a path from where the 10x outputs are accessible. U
 # this assumes your 10x data is in Rstudio_Project_Directory/10X_Data/sampleName/outs/ directory 
 # edit the path argument as needed 
 
-dirs = list.files(path = "10X_Data", full.names = T, pattern = ".h5$", recursive = T)
+dirs = list.files(path = "/workdir/sc_workshop_2024/GSE201999_output", full.names = T, pattern = "filtered_feature_bc_matrix.h5", recursive = T)
 
 # run dirs to confirm the path of h5 filtered matrices
 dirs
