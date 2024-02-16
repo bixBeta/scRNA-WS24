@@ -270,7 +270,6 @@ n_Feature = metadata %>%
 log10GenePerUMI = metadata %>% 
   ggplot(aes(color=orig.ident, x=log10GenesPerUMI, fill= orig.ident)) + 
   geom_density(alpha = 0.2) + 
-  scale_x_log10() + 
   theme_classic() +
   ylab("Cell density") +
   xlab("Novelty Score (logScale)")
@@ -292,6 +291,11 @@ percent.mt =  metadata %>%
 ```
 
 ![density](../images/density.png)
+
+
+With the help of the 
+
+
 
 <br>
 From the above density plots, it is now much easier to see where the tails start/end. 
