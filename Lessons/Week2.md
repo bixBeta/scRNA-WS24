@@ -254,14 +254,16 @@ n_UMI = metadata %>%
   geom_density(alpha = 0.2) + 
   scale_x_log10() + 
   theme_classic() +
-  ylab("Cell density") 
+  ylab("Cell density") +
+  xlab("nCount_RNA or nUMI's (logScale)")
 
 n_Feature = metadata %>% 
   ggplot(aes(color=orig.ident, x=nFeature_RNA, fill= orig.ident)) + 
   geom_density(alpha = 0.2) + 
   scale_x_log10() + 
   theme_classic() +
-  ylab("Cell density") 
+  ylab("Cell density") +
+  xlab("nFeature_RNA (logScale)")
 
 
 
@@ -270,7 +272,8 @@ log10GenePerUMI = metadata %>%
   geom_density(alpha = 0.2) + 
   scale_x_log10() + 
   theme_classic() +
-  ylab("Cell density") 
+  ylab("Cell density") +
+  xlab("Novelty Score (logScale)")
   
 
 percent.mt =  metadata %>% 
@@ -278,7 +281,8 @@ percent.mt =  metadata %>%
   geom_density(alpha = 0.2) + 
   scale_x_log10() + 
   theme_classic() +
-  ylab("Cell density") 
+  ylab("Cell density") +
+  xlab("Mitochodrial Percentage (logScale)")
 
 
   
@@ -288,6 +292,9 @@ percent.mt =  metadata %>%
 ```
 
 ![density](../images/density.png)
+
+<br>
+From the above density plots, it is now much easier to see where the tails start/end. 
 
 <hr>
 
