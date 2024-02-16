@@ -232,7 +232,7 @@ If you do not wish to display points/dots on the violin plot change `pt.size = 0
 
 The violin plot should look like the following:
 
-![violin](../images/violin.png)
+![violin](../images/violin-patchwork.png)
 
 
 
