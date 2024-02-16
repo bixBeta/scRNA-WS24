@@ -234,7 +234,60 @@ The violin plot should look like one of the following: ( Top Panel = `pt.size = 
 
 ![violin](../images/violin-patchwork.png)
 
+<br>
+Even without the points, it can be sometimes hard to fine-tune the bottom tails of the distributions. To mitigate that, in addition to the violin plots, we can plot the density distributions with `ggplot2`. This will help us inform in choosing appropriate cut-offs for filtering the data. <br> 
 
+To do this, first lets save the meta.data slot of our seurat object to our local R environment. 
+
+```
+metadata <- sobj@meta.data
+
+```
+
+This will create a new metadata variable in our R environment, and will populate this variable with the meta.data slot content. 
+
+```
+# lets save all of our plots to a variable, and then we can plot them together (the last line in this code chunk)
+
+n_UMI = metadata %>% 
+  ggplot(aes(color=orig.ident, x=nCount_RNA, fill= orig.ident)) + 
+  geom_density(alpha = 0.2) + 
+  scale_x_log10() + 
+  theme_classic() +
+  ylab("Cell density") 
+
+n_Feature = metadata %>% 
+  ggplot(aes(color=orig.ident, x=nFeature_RNA, fill= orig.ident)) + 
+  geom_density(alpha = 0.2) + 
+  scale_x_log10() + 
+  theme_classic() +
+  ylab("Cell density") 
+
+
+
+log10GenePerUMI = metadata %>% 
+  ggplot(aes(color=orig.ident, x=log10GenesPerUMI, fill= orig.ident)) + 
+  geom_density(alpha = 0.2) + 
+  scale_x_log10() + 
+  theme_classic() +
+  ylab("Cell density") 
+  
+
+percent.mt =  metadata %>% 
+  ggplot(aes(color=orig.ident, x=percent.mt, fill= orig.ident)) + 
+  geom_density(alpha = 0.2) + 
+  scale_x_log10() + 
+  theme_classic() +
+  ylab("Cell density") 
+
+
+  
+
+(n_UMI + n_Feature) / (log10GenePerUMI + percent.mt)
+
+```
+
+![density](../images/density.png)
 
 <hr>
 
