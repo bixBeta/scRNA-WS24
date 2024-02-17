@@ -292,13 +292,61 @@ percent.mt =  metadata %>%
 
 ![density](../images/density.png)
 
-
-With the help of the 
-
-
-
 <br>
-From the above density plots, it is now much easier to see where the tails start/end. 
+
+# 3. Filtering Seurat Object
+
+Please note that for this example dataset, we will use the following criteria:
+
+  - nFeatures > 1000
+  - nFeatures < 9000
+  - log10GenesPerUMI > 0.8
+  - percent.mt < 20
+
+We will create a new (filtered) seurat object by using the `subset` function, which will allow us to set the aforementioned filtering criteria:
+
+```
+sobj.filtered <- subset(sobj, subset = nFeature_RNA > 1000 & nFeature_RNA < 9000 & percent.mt < 20 & log10GenesPerUMI > 0.80)
+
+```
+
+
+# 3.1 Running Seurat Standard Pipeline
+
+```
+# run standard anlaysis workflow ---- 
+# Using LogNormalize Method to Normalize our data ----
+
+sobj.filtered <- NormalizeData(sobj.filtered, normalization.method = "LogNormalize", verbose = T)
+
+# Finding Top 3000 High Variable features using the Variance Stabilized Transformation ----
+
+sobj.filtered <- FindVariableFeatures(sobj.filtered, nfeatures = 3000, selection.method = "vst", verbose = T)
+
+# Scaling (Calculating Z-scores), these are helpful to use for plotting e.g. Heatmaps ----
+# By default, ScaleData only scales variable features, but we can do this for all genes 
+# This helps with visualization of genes that are not part of HVG's 
+
+all.genes <- rownames(sobj.filtered)
+sobj.filtered <- ScaleData(sobj.filtered, features = all.genes)
+
+# Running Principal Components Analysis ---- 
+sobj.filtered <- RunPCA(sobj.filtered, npcs = 50, verbose = T)
+
+ElbowPlot(sobj.filtered, ndims = 50, reduction = "pca")
+
+# Calculating Shared Nearest Neighbors (SNN's) ----
+sobj.filtered <- FindNeighbors(sobj.filtered, dims = 1:50, reduction = "pca")
+
+# Finding Clusters using the Louvain Clustering Algorithm (default) followed by UMAP ----
+sobj.filtered <- FindClusters(sobj.filtered, resolution = 0.4, cluster.name = "unintegrated_clusters", verbose = T)
+sobj.filtered <- RunUMAP(sobj.filtered, dims = 1:50, reduction = "pca", reduction.name = "umap.unintegrated")
+
+# Plotting UMAP
+DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
+```
+
+![umap](../images/umap-res-0.4.png)
 
 <hr>
 
