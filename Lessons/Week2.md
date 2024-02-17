@@ -311,7 +311,7 @@ sobj.filtered <- subset(sobj, subset = nFeature_RNA > 1000 & nFeature_RNA < 9000
 ```
 
 
-# 3.1 Running Seurat Standard Pipeline
+## 3.1 Running Seurat Standard Pipeline
 
 ```
 # run standard anlaysis workflow ---- 
