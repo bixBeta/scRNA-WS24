@@ -1,9 +1,9 @@
 > [!Tip]
 Useful Links:
 [Seurat Version 5 Command Cheat Sheet](https://satijalab.org/seurat/articles/essential_commands)
+[Seurat Object Wiki](https://github.com/satijalab/seurat/wiki)
 
-
-### Cellranger Output
+# Cellranger Output
 
 This week we will start with the complete cellranger outputs that are conveniently available for us to download from the following path: `/workdir/sc_workshop_2024/GSE201999_output`
 Please note that in Week1, we were using a downsampled version of the dataset and we can ignore those outputs for this exercise. 
