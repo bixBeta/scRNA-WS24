@@ -255,7 +255,7 @@ n_UMI = metadata %>%
   scale_x_log10() + 
   theme_classic() +
   ylab("Cell density") +
-  xlab("nCount_RNA or nUMI's (logScale)")
+  xlab("nCount_RNA or nUMI's")
 
 n_Feature = metadata %>% 
   ggplot(aes(color=orig.ident, x=nFeature_RNA, fill= orig.ident)) + 
@@ -263,7 +263,7 @@ n_Feature = metadata %>%
   scale_x_log10() + 
   theme_classic() +
   ylab("Cell density") +
-  xlab("nFeature_RNA (logScale)")
+  xlab("nFeature_RNA")
 
 
 
@@ -272,7 +272,7 @@ log10GenePerUMI = metadata %>%
   geom_density(alpha = 0.2) + 
   theme_classic() +
   ylab("Cell density") +
-  xlab("Novelty Score (logScale)")
+  xlab("Novelty Score ")
   
 
 percent.mt =  metadata %>% 
@@ -281,7 +281,7 @@ percent.mt =  metadata %>%
   scale_x_log10() + 
   theme_classic() +
   ylab("Cell density") +
-  xlab("Mitochodrial Percentage (logScale)")
+  xlab("Mitochodrial Percentage ")
 
 
   
