@@ -71,7 +71,7 @@ h5.list = list()
 # looping over total number of samples (in this case 3) and storing the h5 matrices in our h5.list object
 for (i in 1:length(dirs)) {
   h5.list[[i]] <- Read10X_h5(filename = dirs[i] )
-  names(h5.list)[[i]] <- strsplit(dirname(dirs[i]), split = "/")[[1]][2] # might need tweeking for when the 10X outs are outside of Rstudio project dir
+  names(h5.list)[[i]] <- strsplit(dirname(dirs[i]), split = "/")[[1]][5] # might need tweeking for when the 10X outs are outside of Rstudio project dir
 }
 
 
