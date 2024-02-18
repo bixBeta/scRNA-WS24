@@ -1,7 +1,69 @@
-sobj <- readRDS("git-repo/RDS/01_sobj.merged.RDS")
+# sobj <- readRDS("git-repo/RDS/01_sobj.merged.RDS")
+
+dirs = list.files(path = "10X_Data/", full.names = T, pattern = "filtered_feature_bc_matrix.h5$", recursive = T)
+
+# run dirs to confirm the path of h5 filtered matrices
+dirs
+
+library(Seurat)
+library(SeuratWrappers)
+library(ggplot2)
+library(patchwork)
+library(glmGamPoi)
+library(dplyr)
+
+# first we initialize an empty R list object and load in all h5 matrices per sample as a list using a for loop 
+
+# initialize an empty list 
+h5.list = list()
+
+# looping over total number of samples (in this case 3) and storing the h5 matrices in our h5.list object
+for (i in 1:length(dirs)) {
+  h5.list[[i]] <- Read10X_h5(filename = dirs[i] )
+  names(h5.list)[[i]] <- strsplit(dirname(dirs[i]), split = "/")[[1]][5] # might need tweeking for when the 10X outs are outside of Rstudio project dir
+}
+
+
+# create seurat objects RNA assay ----
+sobj.list = lapply(h5.list, FUN = function(x){
+  
+  x = CreateSeuratObject(counts = x, min.cells = 3, min.features = 200, assay = "RNA")
+  
+})
+
+# by default SampleName which is represented as the orig.ident metadata variable in a seurat object will be named to 'SeuratProject', 
+# we will use the following loop to overwrite that and rename with the sampleID
+
+for (i in 1:length(sobj.list)) {
+  sobj.list[[i]]$orig.ident <- names(sobj.list)[i]  
+}
+
+sobj.list[[1]]$orig.ident %>% head()
+sobj.list[[2]]$orig.ident %>% head()
+sobj.list[[3]]$orig.ident %>% head()
+
+head(sobj.list[[1]]@meta.data)
+
+# add % Mito ----
+sobj.list = lapply(sobj.list, function(x){
+  AddMetaData(object = x, metadata = PercentageFeatureSet(x, "^MT-"), col.name = "percent.mt")
+})
+
+# add log10GenesPerUMI ----
+sobj.list = lapply(sobj.list, function(x){
+  AddMetaData(object = x, metadata = log10(x$nFeature_RNA) / log10(x$nCount_RNA), col.name = "log10GenesPerUMI")
+})
+
+sobj <- merge(x = sobj.list[[1]], y = sobj.list[2:length(sobj.list)], merge.data=TRUE)
+
+saveRDS(sobj, "01_sobj.merged.RDS")
+
+
+sobj <- readRDS("01_sobj.merged.RDS")
 
 VlnPlot(sobj, features = c("nCount_RNA", "nFeature_RNA" , "log10GenesPerUMI", "percent.mt"),
         pt.size = 0, group.by = "orig.ident", ncol = 4)
+
 
 metadata <- sobj@meta.data
 

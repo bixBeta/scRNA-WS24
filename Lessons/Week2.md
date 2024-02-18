@@ -346,7 +346,7 @@ sobj.filtered <- RunUMAP(sobj.filtered, dims = 1:50, reduction = "pca", reductio
 DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
 ```
 
-![umap](../images/umap-res-0.4.png)
+![umap](../images/umap.png)
 
 <hr>
 
