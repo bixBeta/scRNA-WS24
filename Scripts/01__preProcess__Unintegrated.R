@@ -78,4 +78,4 @@ sobj.filtered <- RunUMAP(sobj.filtered, dims = 1:50, reduction = "pca", reductio
 # Plotting UMAP
 DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
 
-
+saveRDS(sobj.filtered, "git-repo/RDS/02_sobj_filtered_res0.4.RDS")
