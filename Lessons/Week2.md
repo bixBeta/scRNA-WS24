@@ -17,7 +17,7 @@ The count matrices produced by cellranger are located in the `./sampleName/outs/
 # Connect and set up the Rstudio environment
 
 1)	Update this link to match the server number (##) assigned to you: 
-http://cbsumma##.biohpc.cornell.edu:8015
+http://cbsumma##.biohpc.cornell.edu:8016 
 
 2)	Paste the link into a web browser. You should connect to an Rstudio login page.
 
