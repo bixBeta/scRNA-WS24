@@ -262,6 +262,7 @@ head(sobj.list[[1]]@meta.data)
 To perform further analysis with seurat, another major step that is required for a multi-sample project is to merge all of our seurat objects into one main seurat object. <br> To achieve this, we can use the merge function and merge all 3 seurat objects stored in our sobj.list into one. 
 
 ```
+#merge the 3 samples into one seurat object
 sobj <- merge(x = sobj.list[[1]], y = sobj.list[2:length(sobj.list)], merge.data=TRUE)
 ```
 
