@@ -467,6 +467,7 @@ After you complete the code block above, your UMAPs should look like the followi
 - Use SCTransform to analyze your Seurat object.
    - [This link](https://satijalab.org/seurat/articles/sctransform_vignette#apply-sctransform-normalization) will take you to the Seurat Vignette for SCTransform
    > To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object <br>
-   > sobj.sct <- readRDS("02_filtered_seurat_object.RDS")   
+   > sobj.sct <- readRDS("02_filtered_seurat_object.RDS")
+   > You may start where you see the `#run sctransform` comment. Replace pbmc with `sobj.sct`  
 
 </details>
