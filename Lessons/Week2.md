@@ -62,46 +62,31 @@ setwd("/workdir/userID/Seurat")
 Alternatively, you can use the 'Files' tab in the lower right panel to navigate to the new `Seurat` directory and then the 'More' menu to `Set As Working Directory`.
 </details>
 
-5) Create a new R script using the top menu: File --> New File --> Rscript or Shift/Cmd|Ctrl/N. This will create a new file in the upper left panel where you can build your code, before running it in the console panel. <br> 
+5) Create a new R script using the top menu: File --> New File --> Rscript or Shift/Cmd|Ctrl/N. This will create a new file in the upper left panel where you can build your code, before running it in the console panel.
+   Please make sure to save this script periodically using `Cmd|Ctrl+S`. 
 
->[!Tip]
+> [!Tip]
 Cut and paste code blocks (with comments, or add you own) to the Rscript file (top-left window) to build and document the code for the analysis pipeline. Run code by clicking the `Run` button in the Rscript file to execute the line after the cursor location (or highlight the rows you want to execute and click `Run`).
 >
 <hr>
 
 # 1. Create Seurat Object
 
-In an Rstudio session create a new project.
-
-Before we get started, we must set up a working directory where all of our Seurat outputs will be stored. To do this we can use `mkdir` and `setwd` functions. 
-In the R console (bottom left pannel), type the following code:
-
-*Please replace `NetID` with your actual NetID before running the code:*
-```
-# this creates a new directory named Seurat in your workdir ----
-system("mkdir /workdir/NetID/Seurat")
-```
+1). To get started, we will need a path from where the 10x outputs are accessible. Use the following code chunk to populate the dirs variable:
 
 ```
-# this will set your Rstudio working directory to the Seurat directory that we created in the previous step ----
-setwd("/workdir/NetID/Seurat")
-```
-Create a new R script using the File --> New File --> Rscript or Shift/Cmd|Ctrl/N <br> 
-To get started, we will need a path from where the 10x outputs are accessible. Use the following code chunk to populate the dirs variable:
-
-
-```
-# this assumes your 10x data is in Rstudio_Project_Directory/10X_Data/sampleName/outs/ directory 
-# edit the path argument as needed 
-
 dirs = list.files(path = "/workdir/sc_workshop_2024/GSE201999_output", full.names = T, pattern = "filtered_feature_bc_matrix.h5", recursive = T)
-
-# run dirs to confirm the path of h5 filtered matrices
-dirs
-
 ```
 
-Use the following code chunk to load all R libraries that are required to run the analysis.
+2). Check that the 'dirs' object has the correct paths by typing `dirs` in the console. You should see the following ouput:
+
+```
+[1] "/workdir/sc_workshop_2024/GSE201999_output/TL-IgG1/outs/filtered_feature_bc_matrix.h5"  
+[2] "/workdir/sc_workshop_2024/GSE201999_output/TL-IgG4/outs/filtered_feature_bc_matrix.h5"  
+[3] "/workdir/sc_workshop_2024/GSE201999_output/Untreated/outs/filtered_feature_bc_matrix.h5"
+```
+
+3). Use the following code chunk to load all R libraries that are required to run the analysis.
 
 ```
 library(Seurat)
@@ -113,8 +98,18 @@ library(dplyr)
 
 ```
 
+<details>
+<summary> Reminder
+</summary>
+<i>It is always a good habbit to check if all of the libraries needed for the analysis are loaded in the R environment. If you close your Rstudio session often times it will require you to re-load the necessary libraries.<br>
+And when you analyze scRNAseq data after the workshop, you may need to install these packages in Rstudio before you can load and use them.</i>
+</details>
 
-Once all libraries are loaded, we will create a seurat object from all samples using `Seurat::Read10X_h5()` and `SeuratObject::CreateSeuratObject()` functions. 
+4). Once all libraries are loaded, we will create a seurat object from all samples using `Seurat::Read10X_h5()` and `SeuratObject::CreateSeuratObject()` functions. 
+
+
+>[!Tip]
+The following code block can be copied and pasted into your Rscript and each line run stepwise. Watch to see the new data objects appear in the upper right `Environment` window.
 
 ```
 # first we initialize an empty R list object and load in all h5 matrices per sample as a list using a for loop 
