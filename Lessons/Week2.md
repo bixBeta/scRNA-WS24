@@ -237,7 +237,7 @@ sobj.list = lapply(sobj.list, function(x){
 })
 ```
 
-Another useful metric to add is the Novelty Score for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later: [Section 2.1](#21-novelty-score))
+Another useful metric to add is the Novelty Score for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later: [Section 2.1](#21-novelty-score) )
 
 ```
 # add log10GenesPerUMI ----
