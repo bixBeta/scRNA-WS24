@@ -449,11 +449,15 @@ sobj.filtered <- FindClusters(sobj.filtered, resolution = 0.4, cluster.name = "u
 sobj.filtered <- RunUMAP(sobj.filtered, dims = 1:50, reduction = "pca", reduction.name = "umap.unintegrated")
 
 # Plotting UMAP
-DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
+u1 = DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
+u2 = DimPlot(sobj.filtered, group.by = "orig.ident")
+
+u1 | u2
 ```
 After you complete the code block above, your UMAPs should look like the following images. 
+<br>
 <i> Are you happy with the clustering?
-![umap](../images/umap.png)
+![umap](../images/umap2.png)
 
 <hr>
 
