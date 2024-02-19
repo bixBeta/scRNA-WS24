@@ -60,7 +60,7 @@ setwd("/workdir/userID/Seurat")
 <details>
 <summary> Alternative option
 </summary>
-Alternatively, you can use the 'Files' tab in the lower right panel to navigate to the new `Seurat` directory and then the 'More' menu to `Set As Working Directory`.
+<i>Alternatively, you can use the 'Files' tab in the lower right panel to navigate to the new `Seurat` directory and then the 'More' menu to `Set As Working Directory`.</i>
 </details>
 
 5) Create a new R script using the top menu: File --> New File --> Rscript or Shift/Cmd|Ctrl/N. This will create a new file in the upper left panel where you can build your code, before running it in the console panel.
@@ -102,7 +102,7 @@ library(dplyr)
 <details>
 <summary> Reminder
 </summary>
-<i>It is always a good habbit to check if all of the libraries needed for the analysis are loaded in the R environment. If you close your Rstudio session often times it will require you to re-load the necessary libraries.<br>
+<i>It is always a good habit to check if all of the libraries needed for the analysis are loaded in the R environment. If you close your Rstudio session often times it will require you to re-load the necessary libraries.<br>
 And when you analyze scRNAseq data after the workshop, you may need to install these packages in Rstudio before you can load and use them.</i>
 </details>
 
@@ -159,12 +159,12 @@ sobj.list[[3]]$orig.ident %>% head()
 
 ![before](../images/i1.png)
 
-These names need to be updated because when we merge these seurat objects together (more on this later: [Section 1.2](#12-merge-seurat-object) ), otherwise we will lose the association between the <br> <b>cellbarcode <--> sample of origin</b><br> and will not be able to identify which barcodes came from which sample!!! <br>
+These names need to be updated because we will soon merge these seurat objects together ([Section 1.2](#12-merge-seurat-object) ). If the names are not updated, we will lose the association between the <br> <b>cellbarcode <--> sample of origin</b><br> and will not be able to identify which cellbarcodes came from which sample!!! <br>
 Therefore we want to make sure that each cellbarcode is associated with the correct sample identifier.  We will use the following helper loop to fix the issue. 
 
 ```
-# by default SampleName which is represented as the orig.ident metadata variable in a seurat object will be named to 'SeuratProject', 
-# we will use the following loop to overwrite that and rename with the sampleID
+# by default, the "SampleName" field (orig.ident) in a seurat object will be loaded as "SeuratProject", 
+# we will use the following loop to overwrite/rename with the sampleID
 
 for (i in 1:length(sobj.list)) {
   sobj.list[[i]]$orig.ident <- names(sobj.list)[i]  
@@ -215,13 +215,13 @@ These three columns are:
 
 <br>
 
-For our initial QC, we will mostly use the meta.data slot. (more on this later: [Section 2](#2-initial-qc) )
+For our initial QC, we will mostly use the meta.data slot (more on this later: [Section 2](#2-initial-qc)).
 
-Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
+We will first add some additional useful metadata to each seurat object as this will help us later when we perform the initial QC checks. 
 
 The first metric that we will calculate and add as a metadata slot is the percent.mt. Unless it is expected as part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often considered to be dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
 
-To do this we can first calculate the proportion of reads per cellbarcode that map to mitochondrial genes. 
+To enable visualization and filtering of mitochondrial gene expression, we first need to calculate the proportion of reads per cellbarcode that map to mitochondrial genes. 
 > <i>A similar approach can be used to calculate and filter for the percent expression chloroplast genes (for plant species), another example would be to calculate the percent expression for ribosomal genes.</i> 
 
 Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate these proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the dataset. Since our goal is to calculate proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"`. 
@@ -238,7 +238,7 @@ sobj.list = lapply(sobj.list, function(x){
 })
 ```
 
-Another useful metric to add is the Novelty Score for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI. (More on this later: [Section 2.1](#21-novelty-score) )
+Another useful metric to add is the Novelty Score for each cell. We can calculate this score by taking a log ratio of nFeature_RNA and nCount_RNA. In other words, this will give us a log10 ratio of genes per UMI (More on this later: [Section 2.1](#21-novelty-score)).
 
 ```
 # add log10GenesPerUMI ----
@@ -287,7 +287,7 @@ VlnPlot(sobj, features = c("nCount_RNA", "nFeature_RNA" , "log10GenesPerUMI", "p
     pt.size = 0.1, group.by = "orig.ident", ncol = 4)
 ```
 
-If you do not wish to display points/dots on the violin plot change `pt.size = 0`
+If you do not wish to display points/dots on the violin plot change `pt.size = 0` .
 
 The violin plot should look like one of the following: ( Top Panel = `pt.size = 0.1` , Bottom Panel = `pt.size = 0`)
 
@@ -325,8 +325,6 @@ n_Feature = metadata %>%
   ylab("Cell density") +
   xlab("nFeature_RNA")
 
-
-
 log10GenePerUMI = metadata %>% 
   ggplot(aes(color=orig.ident, x=log10GenesPerUMI, fill= orig.ident)) + 
   geom_density(alpha = 0.2) + 
@@ -334,7 +332,6 @@ log10GenePerUMI = metadata %>%
   ylab("Cell density") +
   xlab("Novelty Score ")
   
-
 percent.mt =  metadata %>% 
   ggplot(aes(color=orig.ident, x=percent.mt, fill= orig.ident)) + 
   geom_density(alpha = 0.2) + 
@@ -342,12 +339,9 @@ percent.mt =  metadata %>%
   theme_classic() +
   ylab("Cell density") +
   xlab("Mitochodrial Percentage ")
-
-
   
-
+#generate the combined plot:
 (n_UMI + n_Feature) / (log10GenePerUMI + percent.mt)
-
 ```
 
 ![density](../images/density.png)
@@ -358,7 +352,7 @@ percent.mt =  metadata %>%
 
 ## 2.1 Novelty Score 
 
-In section 1.1, we calculated `log10GenesPerUMI`, by taking a log10 ratio of nFeature_RNA to nCount_RNA. This metric that we calculated is referred to as the Novelty Score and provides insights for the complexity of the RNA molecules that were sequenced in a given cell. For instance, in our data-set, there can be cells that have super hight total UMI counts, however the features that are associated with those counts are rather low. This basically tells us that for these cells, a handful of RNA molecules were sequenced over and over rendering these cells as not a true representation of the population they came from. For most scRNA-seq experiments, we expect this score to be 0.8 or higher. Hence any cell in our data-set with a Novelty Score of < 0.8 will be filtered out in our filtering step. 
+In section 1.1, we calculated `log10GenesPerUMI`, by taking a log10 ratio of nFeature_RNA to nCount_RNA. This metric that we calculated is referred to as the Novelty Score and provides insights for the complexity of the RNA molecules that were sequenced in a given cell. For instance, in our data-set, there can be cells that have super high total UMI counts, however the <b>total number</b> of features (genes) that are associated with those counts are rather low. This basically tells us that for these cells, transcripts for only a small number of genes were sequenced over and over rendering these cells as not a true representation of the population they came from. For most scRNA-seq experiments, we expect this score to be 0.8 or higher. Hence any cell in our data-set with a Novelty Score of < 0.8 will be filtered out in the next step. 
 
 
 # 3. Filtering Seurat Object
@@ -382,7 +376,7 @@ sobj.filtered <- subset(sobj, subset = nFeature_RNA > 1000 & nFeature_RNA < 9000
 Save the filtered seurat object for future easy access:
 
 ```
-saveRDS(sobj.filtered, "02_filtered_seurat_object.RDS")
+saveRDS(sobj.filtered, "02_sobj.filtered.RDS")
 ```
 
 > [!Note]
@@ -454,6 +448,9 @@ u1 = DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
 u2 = DimPlot(sobj.filtered, group.by = "orig.ident")
 
 u1 | u2
+
+saveRDS(sobj, "03_sobj.clustered.RDS")
+
 ```
 After you complete the code block above, your UMAPs should look like the following images. 
 <br>
@@ -467,8 +464,9 @@ After you complete the code block above, your UMAPs should look like the followi
 
 - Use SCTransform to analyze your Seurat object.
    - [This link](https://satijalab.org/seurat/articles/sctransform_vignette#apply-sctransform-normalization) will take you to the Seurat Vignette for SCTransform
-   > To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object <br>
-   > sobj.sct <- readRDS("02_filtered_seurat_object.RDS")
-   > You may start where you see the `#run sctransform` comment. Replace pbmc with `sobj.sct`  
-
-</details>
+   - To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object <br>
+   ```
+   sobj.sct <- readRDS("02_filtered_seurat_object.RDS")
+   ```
+   - You may start where you see the `#run sctransform` comment. Replace pbmc with `sobj.sct`  
+   details>
