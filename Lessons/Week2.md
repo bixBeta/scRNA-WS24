@@ -455,19 +455,24 @@ saveRDS(sobj, "03_sobj.clustered.RDS")
 ```
 After you complete the code block above, your UMAPs should look like the following images. 
 <br>
-<i> Are you happy with the clustering?
+<i> Are you happy with the clustering?</i>
+<br>
 ![umap](../images/umap2.png)
+
+Week 3 will revisit some of these steps, after (properly) integrating the 3 samples.
 
 <hr>
 
 <details>
-  <summary> Optional next steps </summary>
+  <summary> Optional week 2 exercies </summary>
 
-- Use SCTransform to analyze your Seurat object.
+- Use SCTransform for normalization instead of LogNormalize.
    - [This link](https://satijalab.org/seurat/articles/sctransform_vignette#apply-sctransform-normalization) will take you to the Seurat Vignette for SCTransform
-   - To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object <br>
+   - To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object into a new `sobj.sct` object:
    ```
-   sobj.sct <- readRDS("02_filtered_seurat_object.RDS")
+   sobj.sct <- readRDS("02_sobj.filtered.RDS")
    ```
-   - You may start where you see the `#run sctransform` comment. Replace pbmc with `sobj.sct`
+   - Follow the vignette (linked above) from the `#run sctransform` comment. Replace pbmc with `sobj.sct`.
+   - Investigate the `sobj.sct` object data structure: what is new or different?
+   - Use the visualizations covered in week 2 to investigate the UMAP generated from data normalized with SCTransform.
 </details>
