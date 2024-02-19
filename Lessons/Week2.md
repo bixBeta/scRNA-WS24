@@ -136,7 +136,7 @@ You may use the `?` at any point in the R console followed by the name of the fu
 
 
 
-Using the h5.list, we will now create seurat objects for each sample. 
+5). Using the h5.list, we will now create seurat objects for each sample. 
 
 ```
 # create seurat objects RNA assay ----
@@ -173,7 +173,7 @@ for (i in 1:length(sobj.list)) {
 
 ```
 
-Run the same code chunk again and see how the results have changed.
+6). Run the same code chunk again and see how the results have changed.
 
 ```
 sobj.list[[1]]$orig.ident %>% head()
