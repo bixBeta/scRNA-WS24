@@ -12,7 +12,7 @@ It is important to note that **cellranger** creates a new directory for each sam
 The count matrices produced by cellranger are located in the `./sampleName/outs/` directory. <br> For Seurat analysis we will be using the file named `filtered_feature_bc_matrix.h5` for each sample.
 
 <hr>
-<br>
+
 
 # Connect and set up the Rstudio environment
 
