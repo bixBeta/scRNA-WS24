@@ -469,5 +469,5 @@ After you complete the code block above, your UMAPs should look like the followi
    ```
    sobj.sct <- readRDS("02_filtered_seurat_object.RDS")
    ```
-   - You may start where you see the `#run sctransform` comment. Replace pbmc with `sobj.sct`  
-   details>
+   - You may start where you see the `#run sctransform` comment. Replace pbmc with `sobj.sct`
+</details>
