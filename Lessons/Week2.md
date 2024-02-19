@@ -147,8 +147,9 @@ sobj.list = lapply(h5.list, FUN = function(x){
 })
 
 ```
+<i>Note that we are filtering the datasets at the time each is loaded into Seurat to require minimum criteria.</i>
 
-If we run the following code, you may notice that each cellbarcode (regardless of the sample it belongs to) is associated with a generic `SeuratProject` identifier.
+By running the following code as a quick check in the console, you may notice that each cellbarcode (regardless of the sample it belongs to) is associated with a generic `SeuratProject` identifier.
 ```
 sobj.list[[1]]$orig.ident %>% head()
 sobj.list[[2]]$orig.ident %>% head()
@@ -157,10 +158,8 @@ sobj.list[[3]]$orig.ident %>% head()
 
 ![before](../images/i1.png)
 
-
-
-We do not want this because when we merge these seurat objects together (more on this later: Section 1.2), we will loose the <br> cellbarcode --> sample info linkage, hence we will not be able to identify which barcodes came from which sample!!! <br>
-Therefore we want each cellbarcode to be associated with the correct sample identifier.  We will use the following helper loop to fix the issue. 
+These names need to be updated because when we merge these seurat objects together (more on this later: Section 1.2), otherwise we will lose the association between the <br> <b>cellbarcode <--> sample of origin</b><br> and will not be able to identify which barcodes came from which sample!!! <br>
+Therefore we want to make sure that each cellbarcode is associated with the correct sample identifier.  We will use the following helper loop to fix the issue. 
 
 ```
 # by default SampleName which is represented as the orig.ident metadata variable in a seurat object will be named to 'SeuratProject', 
@@ -173,7 +172,8 @@ for (i in 1:length(sobj.list)) {
 
 ```
 
-6). Run the same code chunk again and see how the results have changed.
+6). Run the same code chunk again in the console and see how the results have changed.
+
 
 ```
 sobj.list[[1]]$orig.ident %>% head()
@@ -189,21 +189,27 @@ sobj.list[[3]]$orig.ident %>% head()
 ## 1.1 Add MetaData
 
 When we create a seurat object, there are some slots that are automatically populated within the object.<br> One of these slots is the `meta.data` slot. 
-To access this meta.data slot we use the following syntax: `sobj@meta.data`. Lets use the following code to look at the first few lines of the meta.data slot from one of our seurat objects. 
+To access this meta.data slot we use the following syntax: `sobj@meta.data`. Use the following code as a quick check in the console to look at the first few lines of the meta.data slot from one of our seurat objects. 
 
 ```
 head(sobj.list[[1]]@meta.data)
 ```
-Also, try the above code by replacing the index value of 1 to 2 or 3. 
+<i>Rerun the above code and replace the index value [[#]] with `2` or `3`. What changes?</i>
 
 ![meta1](../images/meta.png)
 
-By default, one will always see three columns whose values are mapped to each cellbarcode in a given seurat object. 
+By default, the metadata slot will have three columns representing each cellbarcode in a given seurat object. 
 
 These three columns are:
   - `orig.ident`    : this column will contain the sample identity
-  - `nCount_RNA`    : this column represents the number of UMIs per cell
+  - `nCount_RNA`    : this column represents the number of UMIs (distinct transcipts) detected per cell
   - `nFeature_RNA`  : this column represents the number of genes detected per cell
+
+<details>
+<summary> Alternative option
+</summary>
+<i>Alternatively, you can view the `metadata` slots by clicking on the magnifying glass symbol to the right of the ojbect in the `Environment` tab (upper-right panel). The object will open as a tab in the upper-left panel, and you can expand (or close) slots with the arrowheads. This window is a good way to get familiar with the seurat object data structure.</i>
+</details>
 
 
 <br>
@@ -212,12 +218,15 @@ For our initial QC, we will mostly use the meta.data slot. (more on this later: 
 
 Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
-The first metric that we will add is the percent.mt. Unless it is part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often referred to as dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
+The first metric that we will calculate and add as a metadata slot is the percent.mt. Unless it is expected as part of the experimental perturbation, cells with a high percentage of mitochondrial reads are often considered to be dying/unhealthy cells and it is good practice to set a threshold that filters out cells with high proportion of mitochondrial reads. <br>
 
-To do this we can first calculate the proportion of reads mapping to mitochondrial genes. 
-> One may also use a similar approach to set up thresholds for chloroplast genes (for plant species), another example would be to calculate proportions for ribosomal genes. 
+To do this we can first calculate the proportion of reads per cellbarcode that map to mitochondrial genes. 
+> <i>A similar approach can be used to calculate and filter for the percent expression chloroplast genes (for plant species), another example would be to calculate the percent expression for ribosomal genes.</i> 
 
-Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate these proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the dataset. Since our goal is to calculate proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"` <br>
+Seurat has a convenient function called `PercentageFeatureSet()` that will allow us to calculate these proportions. This function takes in a `pattern` argument and calculates proportions for all genes that match the specified pattern in the dataset. Since our goal is to calculate proportions for mitochondrial genes, we will search for any gene identifiers that begin with the pattern `"MT-"`. 
+><i>Note that this strategy relies on human mitochondrial genes all having gene symbols that start with `"MT-"` (case-sensitive), and this pattern may need to be adjusted for other species (e.g. mouse may be `"Mt-"`)</i>
+
+
 For each cell, the function takes the sum of counts across all genes (features) belonging to the "MT-" set, and then divides by the count sum for all genes (features). This value is multiplied by 100 to obtain a percentage value.
 
 
@@ -260,13 +269,13 @@ Save the merged seurat object for future access.
 ```
 saveRDS(sobj, "01_sobj.merged.RDS")
 ```
+>[!Note]
+Any saved RDS objects can be re-imported in R using the `readRDS` function.
+e.g. to reload previously saved seurat object one may use the following command <br> `sobj <- readRDS("01_sobj.merged.RDS")`
 
 
 # 2. Initial QC
 
->[!Note]
-Any saved RDS objects can be re-imported in R using the `readRDS` function.
-e.g. to reload previously saved seurat object one may use the following command <br> `sobj <- readRDS("01_sobj.merged.RDS")`
 
 
 We will first plot some violin plots and assess how the data looks. Notice that in the features argument of VlnPlot code chunk, we are using all of our meta.data columns. 
@@ -295,6 +304,7 @@ metadata <- sobj@meta.data
 
 This will create a new metadata variable in our R environment, and will populate this variable with the meta.data slot content. 
 
+><i> The `metadata` dataframe is small, compared to the seurat object! It can be viewed in the upper-left panel by clicking on the table icon on the right side of the `metadata` row in the `Environment` tab in the upper-right panel.</i>
 ```
 # lets save all of our plots to a variable, so we can plot them together in one plot (the last line in this code chunk) ----
 
@@ -342,6 +352,9 @@ percent.mt =  metadata %>%
 ![density](../images/density.png)
 
 <br>
+>The density plots will show the distribution of the metadata metrics for each sample. What patterns do you notice?
+
+## 2.1 Novelty Score 
 
 # 3. Filtering Seurat Object
 
