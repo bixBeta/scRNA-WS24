@@ -20,7 +20,7 @@ h5.list = list()
 # looping over total number of samples (in this case 3) and storing the h5 matrices in our h5.list object
 for (i in 1:length(dirs)) {
   h5.list[[i]] <- Read10X_h5(filename = dirs[i] )
-  names(h5.list)[[i]] <- strsplit(dirname(dirs[i]), split = "/")[[1]][5] # might need tweeking for when the 10X outs are outside of Rstudio project dir
+  names(h5.list)[[i]] <- strsplit(dirname(dirs[i]), split = "/")[[1]][3] # might need tweeking for when the 10X outs are outside of Rstudio project dir
 }
 
 
@@ -56,10 +56,10 @@ sobj.list = lapply(sobj.list, function(x){
 
 sobj <- merge(x = sobj.list[[1]], y = sobj.list[2:length(sobj.list)], merge.data=TRUE)
 
-saveRDS(sobj, "01_sobj.merged.RDS")
+saveRDS(sobj, "git-repo/RDS/01_sobj.merged.RDS")
 
 
-sobj <- readRDS("01_sobj.merged.RDS")
+# sobj <- readRDS("01_sobj.merged.RDS")
 
 VlnPlot(sobj, features = c("nCount_RNA", "nFeature_RNA" , "log10GenesPerUMI", "percent.mt"),
         pt.size = 0, group.by = "orig.ident", ncol = 4)
