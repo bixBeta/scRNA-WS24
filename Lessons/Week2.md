@@ -372,12 +372,52 @@ Please note that for this example dataset, we will use the following criteria:
 We will create a new (filtered) seurat object by using the `subset` function, which will allow us to set the aforementioned filtering criteria:
 
 ```
+#filter the seurat object based on counts distributions
+#the goal is to trim outlier cellbarcodes that may be dead/dying cells, doublets, or not representative of the biological state of the sample.
+
 sobj.filtered <- subset(sobj, subset = nFeature_RNA > 1000 & nFeature_RNA < 9000 & percent.mt < 20 & log10GenesPerUMI > 0.80)
 
 ```
+Save the filtered seurat object for future easy access:
 
+```
+saveRDS(sobj.filtered, "02_filtered_seurat_object.RDS")
+```
+
+> [!Note]
+Investigate the new filtered seurat object using what you have learned above. What is similar or different?<br>
 
 ## 3.1 Running Seurat Standard Pipeline
+
+
+In this section, we will build the (merged + filtered) seurat object for biological data mining. Some steps may take a few minutes to complete. The full code block is included below with in-line comments to save in your R script.
+
+For the workshop, we will focus on the default (original) Seurat pipeline, using LogNormalize. If you are interested in using the SCTransform method, you can try this later -- see notes below.
+
+The following steps will add new data slots to the `sobj.filtered` seurat object. You can monitor these either through the console or by viewing (and refreshing!) the object in the top-left panel.
+
+![refresh](../images/refresh.png)
+
+Quick summary:
+- NormalizeData: normalize the counts for each sample to account for sequencing depth
+- FindVariableFeatures: find the genes (features) with the most variable detection (HVGs), accounting for the level of detection (genes with low noisy counts are excluded), and store this list for future reference
+- ScaleData: calculate Z-scores (the spread of the normalized counts across cells) for all genes
+
+<i>The following steps cluster the dataset using <b>only</b> the HVGs, but without integrating the samples. We are running these steps as an example of the results of clustering without integration. The parameters passed in to each step link to the previous calculations/data slots.</i>
+- RunPCA: calculate the top 50 principal components for HVGs
+>>><i>ElbowPlot: visualize the PC analysis as an 'elbow plot'</i>
+- FindNeighbors: calculate the Shared Nearest Neighbors based on the PCs from the previous step
+- FindClusters: assign cells to clusters
+- RunUMAP: generate a UMAP visualization
+>>><i>DimPlot: visualize the UMAPs in 2 ways</i>
+
+<details>
+<summary> Accessing previous plots in Rstudio
+</summary>
+You can access the history of plots you have made in the `plots` tab (lower right panel) using the arrow keys in the top left corner of that panel. This avoids having to regenerate the plot from the console!
+</details>
+
+<b>Code block:</b>
 
 ```
 # run standard anlaysis workflow ---- 
@@ -411,12 +451,18 @@ sobj.filtered <- RunUMAP(sobj.filtered, dims = 1:50, reduction = "pca", reductio
 # Plotting UMAP
 DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
 ```
-
+After you complete the code block above, your UMAPs should look like the following images. 
+<i> Are you happy with the clustering?
 ![umap](../images/umap.png)
 
 <hr>
 
 <details>
-  <summary> For Advanced Users </summary>
+  <summary> Optional next steps </summary>
+
+- Use SCTransform to analyze your Seurat object.
+   - [This link](https://satijalab.org/seurat/articles/sctransform_vignette#apply-sctransform-normalization) will take you to the Seurat Vignette for SCTransform
+> To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object
+> sobj.sct <- readRDS("02_filtered_seurat_object.RDS")   
 
 </details>
