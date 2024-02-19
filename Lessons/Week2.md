@@ -405,11 +405,11 @@ Quick summary:
 
 <i>The following steps cluster the dataset using <b>only</b> the HVGs, but without integrating the samples. We are running these steps as an example of the results of clustering without integration. The parameters passed in to each step link to the previous calculations/data slots.</i>
 - RunPCA: calculate the top 50 principal components for HVGs
-><i>ElbowPlot: visualize the PC analysis as an 'elbow plot'</i>
+   ><i>ElbowPlot: visualize the PC analysis as an 'elbow plot'</i>
 - FindNeighbors: calculate the Shared Nearest Neighbors based on the PCs from the previous step
 - FindClusters: assign cells to clusters
 - RunUMAP: generate a UMAP visualization
-><i>DimPlot: visualize the UMAPs in 2 ways</i>
+   ><i>DimPlot: visualize the UMAPs in 2 ways</i>
 
 <details>
 <summary> Accessing previous plots in Rstudio
@@ -466,7 +466,7 @@ After you complete the code block above, your UMAPs should look like the followi
 
 - Use SCTransform to analyze your Seurat object.
    - [This link](https://satijalab.org/seurat/articles/sctransform_vignette#apply-sctransform-normalization) will take you to the Seurat Vignette for SCTransform
-> To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object
-> sobj.sct <- readRDS("02_filtered_seurat_object.RDS")   
+   > To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object <br>
+   > sobj.sct <- readRDS("02_filtered_seurat_object.RDS")   
 
 </details>
