@@ -158,7 +158,7 @@ sobj.list[[3]]$orig.ident %>% head()
 
 ![before](../images/i1.png)
 
-These names need to be updated because when we merge these seurat objects together (more on this later: Section 1.2), otherwise we will lose the association between the <br> <b>cellbarcode <--> sample of origin</b><br> and will not be able to identify which barcodes came from which sample!!! <br>
+These names need to be updated because when we merge these seurat objects together (more on this later: [Section 1.2](#12-merge-seurat-object) ), otherwise we will lose the association between the <br> <b>cellbarcode <--> sample of origin</b><br> and will not be able to identify which barcodes came from which sample!!! <br>
 Therefore we want to make sure that each cellbarcode is associated with the correct sample identifier.  We will use the following helper loop to fix the issue. 
 
 ```
@@ -214,7 +214,7 @@ These three columns are:
 
 <br>
 
-For our initial QC, we will mostly use the meta.data slot. (more on this later: Section 2)
+For our initial QC, we will mostly use the meta.data slot. (more on this later: [Section 2](#2) )
 
 Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
