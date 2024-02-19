@@ -352,9 +352,13 @@ percent.mt =  metadata %>%
 ![density](../images/density.png)
 
 <br>
->The density plots will show the distribution of the metadata metrics for each sample. What patterns do you notice?
+
+> The density plots will show the distribution of the metadata metrics for each sample. What patterns do you notice?
 
 ## 2.1 Novelty Score 
+
+In section 1.1, we calculated `log10GenesPerUMI`, by taking a log10 ratio of nFeature_RNA to nCount_RNA. This metric that we calculated is referred to as the Novelty Score and provides insights for the complexity of the RNA molecules that were sequenced in a given cell. For instance, in our data-set, there can be cells that have super hight total UMI counts, however the features that are associated with those counts are rather low. This basically tells us that for these cells, a handful of RNA molecules were sequenced over and over rendering these cells as not a true representation of the population they came from. For most scRNA-seq experiments, we expect this score to be 0.8 or higher. Hence any cell in our data-set with a Novelty Score of < 0.8 will be filtered out in our filtering step. 
+
 
 # 3. Filtering Seurat Object
 
