@@ -214,7 +214,7 @@ These three columns are:
 
 <br>
 
-For our initial QC, we will mostly use the meta.data slot. (more on this later: [Section 2](#2) )
+For our initial QC, we will mostly use the meta.data slot. (more on this later: [Section 2](#2-initial-qc) )
 
 Let us now add some other useful metadata to each seurat object as this will help us later when we perform our initial QC checks. 
 
