@@ -466,6 +466,15 @@ Week 3 will revisit some of these steps, after (properly) integrating the 3 samp
 <details>
   <summary> Optional week 2 exercies </summary>
 
+- Rerun the week 2 pipeline with different filtering cutoffs or parameters (e.g. clustering resolution).
+   - In some cases, you can save new analyses into the existing object, using a new slot (with appropriate naming).
+   - Take care not to overwrite slots in the seurat object you have generated above.
+   - One option is to reload an object created at an earlier step into a new object with a new name.
+   ```
+   sobj.new <- readRDS("01_sobj.merged.RDS")
+   ```
+   - When saving new seurat objects, take care not to overwrite your existing RDS files!
+     
 - Use SCTransform for normalization instead of LogNormalize.
    - [This link](https://satijalab.org/seurat/articles/sctransform_vignette#apply-sctransform-normalization) will take you to the Seurat Vignette for SCTransform
    - To use SCTransform on the exercise data-set, you can start by loading the merged + filtered seurat object into a new `sobj.sct` object:
