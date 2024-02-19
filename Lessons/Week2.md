@@ -14,6 +14,60 @@ The count matrices produced by cellranger are located in the `./sampleName/outs/
 <hr>
 <br>
 
+# Connect and set up the Rstudio environment
+
+1)	Update this link to match the server number (##) assigned to you: 
+http://cbsumma##.biohpc.cornell.edu:8015
+
+2)	Paste the link into a web browser. You should connect to an Rstudio login page.
+
+3)	Login with your BioHPC credentials (same login as connecting to the server). 
+
+<details>
+<summary>New to Rstudio? Read this first...
+</summary>
+<br>
+Rstudio will open with 3-4 windows. On the left (or lower left) side is the 'console' window where you can cut-and-paste commands. For these exercies, we will also create an 'Rscript' file to document and comment (#like this) your analysis pipeline. You can open Rscripts later to rerun code on new datasets, or as a draft to rerun analyses with different parameters, for example.
+<br><br>
+- The Rscript window will open in the top-left panel. This panel can also display objects in other tabs.<br>
+- The lower-left panel is the console where the code is executed.<br>
+- The top-right panel displays data objects (as well as other tabs).<br>
+- The lower-right panel has several tabs to display files, plots (figures), R packages, and help documentation.
+We will use all of these panels to build and interact with the dataset in R.<br><br>
+Build code in the Rscript panel, adding #comments (preceded by the `#` symbol) that will be ignored when executed. Run code either using the `Run` button in the Rscript file, or by pasting directly into the console (e.g. for testing purposes or quick checks that dont need to be documented in the pipeline).
+</details>
+
+
+4) Before we get started, we must set up a working directory where all of our Seurat outputs will be stored. To do this we can use `mkdir` and `setwd` functions. 
+In the R console (bottom left panel), type the following code:
+
+*Please replace `userID` with your BioHPC UserID before running the code*
+```
+# this creates a new directory named Seurat in your workdir ----
+system("mkdir /workdir/userID/Seurat")
+```
+<details>
+<summary> Alternative option
+</summary>
+<i>Alternatively, you can use the 'Files' tab in the lower right panel to navigate to and create a new directory in your `/workdir/userID/` working directory.</i>
+</details>
+
+```
+# this will set your Rstudio working directory to the Seurat directory that we created in the previous step ----
+setwd("/workdir/userID/Seurat")
+```
+<details>
+<summary> Alternative option
+</summary>
+Alternatively, you can use the 'Files' tab in the lower right panel to navigate to the new `Seurat` directory and then the 'More' menu to `Set As Working Directory`.
+</details>
+
+5) Create a new R script using the top menu: File --> New File --> Rscript or Shift/Cmd|Ctrl/N. This will create a new file in the upper left panel where you can build your code, before running it in the console panel. <br> 
+
+>[!Tip]
+Cut and paste code blocks (with comments, or add you own) to the Rscript file (top-left window) to build and document the code for the analysis pipeline. Run code by clicking the `Run` button in the Rscript file to execute the line after the cursor location (or highlight the rows you want to execute and click `Run`).
+>
+<hr>
 
 # 1. Create Seurat Object
 
