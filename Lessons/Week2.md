@@ -471,7 +471,7 @@ Week 3 will revisit some of these steps, after (properly) integrating the 3 samp
    - Take care not to overwrite slots in the seurat object you have generated above.
    - One option is to reload an object created at an earlier step into a new object with a new name.
    ```
-   sobj.new <- readRDS("01_sobj.merged.RDS")
+   sobj.sct <- readRDS("01_sobj.merged.RDS")
    ```
    - When saving new seurat objects, take care not to overwrite your existing RDS files!
      
