@@ -139,11 +139,12 @@ ns_h2 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
 
 <details>
   <summary> Optional: play with clustering resolution</summary>
-  The appropriate number of clusters for a dataset is somewhat subjective. Try playing with the clustering steps to see how the assignment of cells to clusters changes. The most common parameter to vary is the 'resolution` parameter at the FindClusters() step: a higher resolution value should give more total clusters. Some tips:
-  >- Use a new name for the cluster.name parameter, to avoid overwriting the clusters generated with resolution = 0.4
-  >- You dont need to rerun the RunUMAP() step after rerunning FindClusters(), because the UMAP projection does not change
-  >- FindClusters() will save the new cluster values to the `seurat_clusters` metadata slot, as well as in the new `cluster.name` slot
-  >- You can define the cluster identities to use in following steps with the Idents() function 
+  The appropriate number of clusters for a dataset is somewhat subjective. Try playing with the clustering steps to see how the assignment of cells to clusters changes. The most common parameter to vary is the 'resolution` parameter at the FindClusters() step: a higher resolution value should give more total clusters. <br>
+  Some tips:
+>- Use a new name for the cluster.name parameter, to avoid overwriting the clusters generated with resolution = 0.4
+>- You dont need to rerun the RunUMAP() step after rerunning FindClusters(), because the UMAP projection does not change
+>- FindClusters() will save the new cluster values to the `seurat_clusters` metadata slot, as well as in the new `cluster.name` slot
+>- You can define the cluster identities to use in following steps with the Idents() function 
 </details>
 
 # 2. Differential Gene Expression Analysis with FindMarkers
