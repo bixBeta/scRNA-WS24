@@ -142,7 +142,7 @@ ns_h2 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
   <summary> Optional: play with clustering resolution</summary>
   The appropriate number of clusters for a dataset is somewhat subjective. Try playing with the clustering steps to see how the assignment of cells to clusters changes. The most common parameter to vary is the 'resolution` parameter at the FindClusters() step: a higher resolution value should give more total clusters. <br>
   Some tips: <br>
-###  TODO: fix formatting for the bullet points below
+<b>TODO: fix formatting for the bullet points below</b>
 >- Use a new name for the cluster.name parameter, to avoid overwriting the clusters generated with resolution = 0.4
 >- You dont need to rerun the RunUMAP() step after rerunning FindClusters(), because the UMAP projection does not change
 >- FindClusters() will save the new cluster values to the `seurat_clusters` metadata slot, as well as in the new `cluster.name` slot
@@ -267,15 +267,27 @@ Next, we will use one cluster as an example of finding genes that are differenti
 # Set the idents to define sets of cells to compare
 Idents(sobj.filtered) <- sobj.filtered$orig.ident
 
-# TODO: pick a decent cluster to run
+# Find DE genes between treated and untreated cells in cluster 1
 IgG1_v_UT_Cluster1 <- FindMarkers(sobj.filtered, ident.1 = "TL-IgG1", ident.2 = "Untreated", group.by = "orig.ident", subset.ident = 1, only.pos = F)
-
 ```
+Genes of interest can be vizualized in different ways, grouped/split by clusters and by samples:
+```
+# Plot a few top genes in different ways
+# UMAP split by sample
+FeaturePlot(sobj.filtered,features = c("LYZ","JUNB"), split.by="orig.ident")
 
-Optional further analyses:
+# Violin plot with all clusters, split by sample
+VlnPlot(sobj.filtered,features = c("LYZ","JUNB"), split.by="orig.ident", pt.size=0)
+
+Idents(sobj.filtered) <- sobj.filtered$harmony_clusters
+# Ridge plot comparing samples, just for cells in cluster 1
+RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", idents=1)
+```
+## Optional further analyses, guided by Seurat and other vignettes:
 - Try other methods to generate an integrated dataset, such as
   -- SCTransform-normalized data (https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets)
   -- methods other than Harmony
 - Find DE genes between samples within each cluster for each pair of samples. Which clusters have the most DE genes between samples? Which pairs of samples have the most different expression within clusters?
-- Use SingleR to automate cluster identification (TODO: add link to vignette)
-- Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette:
+- Use SingleR to automate cluster identification <b>TODO: add link to vignette</b>
+- Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette: https://satijalab.org/seurat/articles/de_vignette
+- Use FindMarkers() to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant adj-p values -- adjust parameters accordingly! <b>TODO: Could use this example as a guide: <b> https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html
