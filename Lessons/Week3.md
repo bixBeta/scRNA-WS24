@@ -240,16 +240,19 @@ And marker genes of interest can be visualized on the UMAP:
 FeaturePlot(sobj.filtered,features = c("NKG7","CCR7","IKZF2","KLRD1","MS4A1","DOCK4"))
 ```
 
+![featurePlot](../images/featurePlot.png)
+
 Or in a dot plot:
 ```
 #TODO: get 5 top marker genes by avg_log2fc per cluster and generate a bubble/dot plot
 # Example based on Seurat vignette
 # TODO: make list of unique geneIDs only!
 sobj.markers %>%
-  +   group_by(cluster) %>%
-  +   dplyr::filter(avg_log2FC > 1) %>%
-  +     slice_head(n = 5) %>%
-  +     ungroup() -> top5
+     group_by(cluster) %>%
+     dplyr::filter(avg_log2FC > 1 & p_val_adj < 0.05) %>%
+      arrange(desc(avg_log2FC)) %>% 
+       slice_head(n = 5) %>%
+       ungroup() -> top5
 
 # TODO use list of unique geneIDs, this gives errors!
 DotPlot(sobj.filtered, features = top5$gene) +
