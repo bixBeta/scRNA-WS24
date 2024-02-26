@@ -292,7 +292,7 @@ FeaturePlot(sobj.filtered,features = c("LYZ","JUNB"), split.by="orig.ident", red
 
 ```
 # Violin plot with all clusters, split by sample
-VlnPlot(sobj.filtered,features = c("LYZ","JUNB"), split.by="orig.ident", pt.size=0)
+VlnPlot(sobj.filtered, features = c("LYZ","JUNB"), split.by="orig.ident", pt.size=0, ncol = 1) + theme(legend.position = 'bottom')
 ```
 ![violin.de](../images/violin.de.png)
 
