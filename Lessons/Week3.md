@@ -248,8 +248,11 @@ FeaturePlot(sobj.filtered,features = c("NKG7","CCR7","IKZF2","KLRD1","MS4A1","DO
 Or in a dot plot:
 
 ```
-# Example based on Seurat vignette
+# DotPlot for a few top marker genes
+DotPlot(sobj.filtered, features = c("NKG7","CCR7","IKZF2","KLRD1","MS4A1","DOCK4")) +
+  RotatedAxis()
 
+# Extract top 5 marker genes per cluster for visualization
 sobj.markers %>%
      group_by(cluster) %>%
      dplyr::filter(avg_log2FC > 1 & p_val_adj < 0.05) %>%
@@ -257,6 +260,7 @@ sobj.markers %>%
        slice_head(n = 5) %>%
        ungroup() -> top5
 
+# DotPlot for the top 5 marker genes per cluster
 DotPlot(sobj.filtered, features = unique(top5$gene)) +
   RotatedAxis()
 
@@ -267,7 +271,8 @@ DotPlot(sobj.filtered, features = unique(top5$gene)) +
 Or in a heatmap:
 
 ```
-DoHeatmap(sobj.filtered, features = unique(top5$gene), size = 10 ) + NoLegend()
+# Heatmap of top 5 marker genes per cluster, downsampled to 5000 cells to speed up the visualization
+DoHeatmap(sobj.filtered, features = unique(top5$gene), ncells = 5000, size = 10 ) + NoLegend()
 ```
 
 ![heatmap](../images/heatmap.png)
