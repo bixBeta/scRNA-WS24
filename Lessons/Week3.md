@@ -264,6 +264,15 @@ DotPlot(sobj.filtered, features = unique(top5$gene)) +
 ![dotPlot](../images/dotplot.png)
 
 
+Or in a heatmap:
+
+```
+DoHeatmap(sobj.filtered, features = unique(top5$gene),size = 20 ) + NoLegend()
+```
+
+![heatmap](../images/heatmap.png)
+
+<hr>
 
 Next, we will use one cluster as an example of finding genes that are differentially expressed between samples and within a cell type. Again we use FindMarkers(), but this time defining the sets of cells to compare using orig.ident:
 ```
