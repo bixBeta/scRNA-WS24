@@ -274,7 +274,7 @@ DoHeatmap(sobj.filtered, features = unique(top5$gene), size = 10 ) + NoLegend()
 
 <hr>
 
-Next, we will use one cluster as an example of finding genes that are differentially expressed between samples and within a cell type. Again we use FindMarkers(), but this time defining the sets of cells to compare using orig.ident:
+Next, we will use one cluster as an example of finding genes that are differentially expressed between samples and within a cell type. Again we use `FindMarkers()`, but this time defining the sets of cells to compare using orig.ident:
 ```
 # Set the idents to define sets of cells to compare
 Idents(sobj.filtered) <- sobj.filtered$orig.ident
