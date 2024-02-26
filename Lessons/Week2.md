@@ -450,7 +450,7 @@ u2 = DimPlot(sobj.filtered, group.by = "orig.ident")
 
 u1 | u2
 
-saveRDS(sobj, "03_sobj.clustered.RDS")
+saveRDS(sobj.filtered, "03_sobj.clustered.RDS")
 
 ```
 After you complete the code block above, your UMAPs should look like the following images. 
