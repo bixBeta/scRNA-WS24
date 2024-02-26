@@ -5,7 +5,7 @@ These procedures will help us identify any problems that we may need to correct 
 <hr>
 
 # 1. Import Seurat Object
-If you finish the exercise of week2, most likely you will already have the `sobj.filtered` object in your environment. If for somereason its not there, you may alternatively re-load it using the readRDS command. The seurat object from exercise2 is available for access at the following path: `/path/to/sobj.filtered` 
+If you finish the exercise of week2, most likely you will already have the `sobj.filtered` object in your environment. If for some reason it is not there, you may alternatively re-load it using the readRDS command. The seurat object from exercise2 is available for access at the following path: `/path/to/sobj.filtered` 
 
 Let's begin by first importing our seurat object into our R environment and plotting the umaps that we obtained from our standard analysis last week. <br>
 This is the object that we saved at the end of our last session. 
