@@ -5,16 +5,17 @@ These procedures will help us identify any problems that we may need to correct 
 <hr>
 
 # 1. Import Seurat Object
+If you finish the exercise of week2, most likely you will already have the `sobj.filtered` object in your environment. If for somereason its not there, you may alternatively re-load it using the readRDS command. The seurat object from exercise2 is available for access at the following path: `/path/to/sobj.filtered` 
 
 Let's begin by first importing our seurat object into our R environment and plotting the umaps that we obtained from our standard analysis last week. <br>
 This is the object that we saved at the end of our last session. 
 
 ```
-sobj <- readRDS("03_sobj.clustered.RDS")
+# sobj.filtered <- readRDS("/path/to/sobj.filtered/03_sobj.clustered.RDS") # un-comment this line by removing the '#' symbol from the beginning of this line if you would like to use the seurat object that is provided by BioHPC
 
 # Plotting UMAP
-u1 = DimPlot(sobj, group.by = "seurat_clusters", label = T)
-u2 = DimPlot(sobj, group.by = "orig.ident")
+u1 = DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
+u2 = DimPlot(sobj.filtered, group.by = "orig.ident")
 
 u1 | u2
 ```
@@ -34,7 +35,7 @@ Lets now use the following code to investigate cluster membership by sample and 
 
 ```
 # Get Number of cells per sample within each cluster ---- 
-n_cells <- FetchData(sobj, 
+n_cells <- FetchData(sobj.filtered, 
                      vars = c("unintegrated_clusters", "orig.ident")) %>%
                       dplyr::count(unintegrated_clusters, orig.ident)
 
@@ -72,7 +73,7 @@ Note that in our case it is not necessary to split our seurat object prior to in
 
 
 ```
-sobj <- IntegrateLayers(object = sobj, method = HarmonyIntegration, orig.reduction = "pca", 
+sobj.filtered <- IntegrateLayers(object = sobj.filtered, method = HarmonyIntegration, orig.reduction = "pca", 
                         new.reduction = "harmony_pca",
                         verbose = T)
 ```
@@ -81,7 +82,7 @@ After applying the integration function, we can join all layers together using t
 
 ```
 # re-join layers after integration ----
-sobj[["RNA"]] <- JoinLayers(sobj[["RNA"]])
+sobj.filtered[["RNA"]] <- JoinLayers(sobj.filtered[["RNA"]])
 ```
 
 We can now proceed by running the remaining seurat pipeline as is. We will change some parameters and name them a little differently so we can distinguish between unintegrated and harmony integrated components of the seurat object for future access.  
@@ -89,16 +90,16 @@ We can now proceed by running the remaining seurat pipeline as is. We will chang
 Let's run the following code chunk to get clustering results using the harmony corrected embeddings. Once we create clusters, lets review them side-by-side. 
 
 ```
-sobj <- FindNeighbors(sobj, reduction = "harmony_pca", dims = 1:50)
-sobj <- FindClusters(sobj, resolution = 0.4, cluster.name = "harmony_clusters")
-sobj <- RunUMAP(sobj, dims = 1:50, reduction = "harmony_pca", reduction.name = "harmony.integrated")
+sobj.filtered <- FindNeighbors(sobj.filtered, reduction = "harmony_pca", dims = 1:50)
+sobj.filtered <- FindClusters(sobj.filtered, resolution = 0.4, cluster.name = "harmony_clusters")
+sobj.filtered <- RunUMAP(sobj.filtered, dims = 1:50, reduction = "harmony_pca", reduction.name = "harmony.integrated")
 
 
-u1 = DimPlot(sobj, group.by = "unintegrated_clusters", label = T, label.size = 7, reduction = "umap.unintegrated")
-u2 = DimPlot(sobj, group.by = "orig.ident",reduction = "umap.unintegrated")
+u1 = DimPlot(sobj.filtered, group.by = "unintegrated_clusters", label = T, label.size = 7, reduction = "umap.unintegrated")
+u2 = DimPlot(sobj.filtered, group.by = "orig.ident",reduction = "umap.unintegrated")
 
-h1 = DimPlot(sobj, group.by = "harmony_clusters", label = T, label.size = 7, reduction = "harmony.integrated")
-h2 = DimPlot(sobj, group.by = "orig.ident", reduction = "harmony.integrated")
+h1 = DimPlot(sobj.filtered, group.by = "harmony_clusters", label = T, label.size = 7, reduction = "harmony.integrated")
+h2 = DimPlot(sobj.filtered, group.by = "orig.ident", reduction = "harmony.integrated")
 
 (u1 | u2)  / (h1 | h2)
 ```
@@ -110,7 +111,7 @@ From the above UMAP's, we see that in the harmony integrated clusters, we now se
 We can further validate this by looking at the sample proportions per cluster again. Lets use the following code to compute these and plot unintegrated and integrated results side-by-side
 
 ```
-n_cells_h <- FetchData(sobj, 
+n_cells_h <- FetchData(sobj.filtered, 
                       vars = c("harmony_clusters", "orig.ident")) %>%
   dplyr::count(harmony_clusters, orig.ident)
 
