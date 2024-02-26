@@ -286,6 +286,8 @@ Idents(sobj.filtered) <- sobj.filtered$harmony_clusters
 # Ridge plot comparing samples, just for cells in cluster 1
 RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", idents=1)
 ```
+<hr>
+
 ## Optional further analyses, guided by Seurat and other vignettes:
 - Try other methods to generate an integrated dataset, such as
   -- SCTransform-normalized data (https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets)
