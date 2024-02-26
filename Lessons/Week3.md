@@ -76,7 +76,6 @@ Lets use the following code chunk to perform integration:
 
 Note that in our case it is not necessary to split our seurat object prior to integration. In cases where a user wants to integrate not by sample but rather than some other category, they must split the seurat object layers first using the split function. See [this](https://satijalab.org/seurat/articles/essential_commands#split-layers) for more details. <br>
 
-### TODO: should the obj name now by sobj.integrated (here and below)??
 
 ```
 sobj.filtered <- IntegrateLayers(object = sobj.filtered, method = HarmonyIntegration, orig.reduction = "pca", 
@@ -292,6 +291,6 @@ RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", ide
   -- SCTransform-normalized data (https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets)
   -- methods other than Harmony
 - Find DE genes between samples within each cluster for each pair of samples. Which clusters have the most DE genes between samples? Which pairs of samples have the most different expression within clusters?
-- Use SingleR to automate cluster identification <b>TODO: add link to vignette</b>
+- Use SingleR to automate cluster identification, [SingleR Vignette](https://bioconductor.org/packages/release/bioc/vignettes/SingleR/inst/doc/SingleR.html)
 - Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette: https://satijalab.org/seurat/articles/de_vignette
 - Use FindMarkers() to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant adj-p values -- adjust parameters accordingly! <b>TODO: Could use this example as a guide: <b> https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html
