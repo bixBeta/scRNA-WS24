@@ -167,8 +167,9 @@ First, we will use the related `FindAllMarkers()` function to generate lists of 
 Idents(sobj.filtered) <- sobj.filtered$harmony_clusters
 
 # Install presto to help FindAllMarkers run quickly
+# comment out the next line after install, future runs only need to load the library
 devtools::install_github('immunogenomics/presto')
-
+library(presto)
 # Find marker genes that disinguish each cluster compared to all other cells
 # Use default Wilcox algorithm and default cutoffs for minimum detection and log(fold-change) and 
 # Save only the positive marker genes (higher expression in the cluster being tested vs all other cells)
