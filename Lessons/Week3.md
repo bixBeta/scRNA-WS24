@@ -267,7 +267,7 @@ DotPlot(sobj.filtered, features = unique(top5$gene)) +
 Or in a heatmap:
 
 ```
-DoHeatmap(sobj.filtered, features = unique(top5$gene),size = 20 ) + NoLegend()
+DoHeatmap(sobj.filtered, features = unique(top5$gene), size = 10 ) + NoLegend()
 ```
 
 ![heatmap](../images/heatmap.png)
