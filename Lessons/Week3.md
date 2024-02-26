@@ -76,6 +76,7 @@ Lets use the following code chunk to perform integration:
 
 Note that in our case it is not necessary to split our seurat object prior to integration. In cases where a user wants to integrate not by sample but rather than some other category, they must split the seurat object layers first using the split function. See [this](https://satijalab.org/seurat/articles/essential_commands#split-layers) for more details. <br>
 
+### TODO: should the obj name now by sobj.integrated (here and below)??
 
 ```
 sobj.filtered <- IntegrateLayers(object = sobj.filtered, method = HarmonyIntegration, orig.reduction = "pca", 
@@ -148,6 +149,8 @@ ns_h2 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
 >- You can define the cluster identities to use in following steps with the Idents() function 
 </details>
 
+### TODO: save object!
+
 # 2. Differential Gene Expression Analysis with FindMarkers
 
 In Seurat, a key function that we will use to determine differences in gene expression between and within clusters is the `FindMarkers()` function. 
@@ -155,23 +158,23 @@ In Seurat, a key function that we will use to determine differences in gene expr
 First, we will use the related `FindAllMarkers()` function to generate lists of marker genes that distinguish each cluster from all others:
 
 ```
-# set idents to the harmony_clusters with res=0.4
+# Set idents to make sure next steps use the harmony_clusters with res=0.4
 Idents(sobj.filtered) <- sobj.filtered$harmony_clusters
 
-# install presto to help FindAllMarkers run quickly
+# Install presto to help FindAllMarkers run quickly
 devtools::install_github('immunogenomics/presto')
 
-# find marker genes that disinguish each cluster compared to all other cells
-# use default Wilcox algorithm and default cutoffs for minimum detection and log(fold-change) and 
-# save only the positive marker genes (higher expression in the cluster being tested vs all other cells)
+# Find marker genes that disinguish each cluster compared to all other cells
+# Use default Wilcox algorithm and default cutoffs for minimum detection and log(fold-change) and 
+# Save only the positive marker genes (higher expression in the cluster being tested vs all other cells)
 sobj.markers <- FindAllMarkers(sobj.filtered, only.pos = TRUE)
 
-#check the top marker genes by cluster
+# Check the top marker genes by cluster
 sobj.markers %>%
   group_by(cluster) %>%
   dplyr::filter(avg_log2FC > 1)
 ```
-The top results for Cluster 0 should look like:
+The top results for Cluster 0 should look like the table below. Review the column names at the top to interpret the table (e.g. Cluster # is in the next-to-last column).
 ```
 # A tibble: 19,082 × 7
 # Groups:   cluster [18]
@@ -224,25 +227,55 @@ Which shows there are hundreds to thousands of genes with differential expressio
 18 17       3445
 ```
 
-These results can be written to a file:
+These results can be saved and/or written to a file:
 ```
+#TODO: saveRDS()
 #TODO: add write `sobj.markers` to file
 
 ```
 
 And marker genes of interest can be visualized on the UMAP:
 ```
-#TODO: DimPlots for a few genes of interest
+# FeaturePlots for a few top marker genes
+FeaturePlot(sobj.filtered,features = c("NKG7","CCR7","IKZF2","KLRD1","MS4A1","DOCK4"))
 ```
 
 Or in a dot plot:
 ```
 #TODO: get 5 top marker genes by avg_log2fc per cluster and generate a bubble/dot plot
+# Example based on Seurat vignette
+# TODO: make list of unique geneIDs only!
+sobj.markers %>%
+  +   group_by(cluster) %>%
+  +   dplyr::filter(avg_log2FC > 1) %>%
+  +     slice_head(n = 5) %>%
+  +     ungroup() -> top5
+
+# TODO use list of unique geneIDs, this gives errors!
+DotPlot(sobj.filtered, features = top5$gene) +
+  RotatedAxis()
+
 ```
 Or in a  heatmap:
 ```
-#TODO: generate a heatmap for the same 5 top marker genes per cluster
+# Note this may be very slow!
+DoHeatmap(filtered, features = top5$gene) + NoLegend()
 ```
 
+Next, we will use one cluster as an example of finding genes that are differentially expressed between samples and within a cell type. Again we use FindMarkers(), but this time defining the sets of cells to compare using orig.ident:
+```
+# Set the idents to define sets of cells to compare
+Idents(sobj.filtered) <- sobj.filtered$orig.ident
 
+# TODO: pick a decent cluster to run
+IgG1_v_UT_Cluster1 <- FindMarkers(sobj.filtered, ident.1 = "TL-IgG1", ident.2 = "Untreated", group.by = "orig.ident", subset.ident = 1, only.pos = F)
 
+```
+
+Optional further analyses:
+- Try other methods to generate an integrated dataset, such as
+  -- SCTransform-normalized data (https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets)
+  -- methods other than Harmony
+- Find DE genes between samples within each cluster for each pair of samples. Which clusters have the most DE genes between samples? Which pairs of samples have the most different expression within clusters?
+- Use SingleR to automate cluster identification (TODO: add link to vignette)
+- Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette:
