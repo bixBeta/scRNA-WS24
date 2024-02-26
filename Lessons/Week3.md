@@ -2,6 +2,7 @@ In this exercise, we will explore ways to understand the quality of our clusteri
 
 These procedures will help us identify any problems that we may need to correct before we dive into the downstream biological analysis e.g. FindMarkers / Differential Gene Expression Tests etc. 
 
+<hr>
 
 # 1. Import Seurat Object
 
@@ -52,3 +53,13 @@ ns1 / ns2
 ```
 ![ncells](../images/ncells.png)
 
+From the above plots we see that there are clusters that are dominated by just the Untreated samples e.g. `Clusters 3, 7, 11, 19`, and there are clusters where Untreated samples has zero to very less membership e.g. `Clusters 2, 4, 6, 9, 12, 20`. 
+
+This suggests that in our data, cells are being clustered by sample. In order to correct this, we will use `Harmony Integration` as a strategy to fix this issue and hopefully when we look at this QC again on our aligned/integrated dataset, we may find less problems. 
+
+
+# 2. Harmony Integration 
+
+In Seurat, the main function that we need to be aware of is `IntegrateLayers()` function. 
+>[! Tip] Use `?IntegrateLayers` in the console to investigate all the arguments supported by this function.
+ 
