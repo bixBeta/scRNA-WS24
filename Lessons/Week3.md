@@ -315,7 +315,7 @@ RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", ide
   + Try methods other than Harmony
 * Find DE genes between samples within each cluster for each pair of samples. Which clusters have the most DE genes between samples? Which pairs of samples have the most different expression within clusters?
 * Use SingleR to automate cluster identification, [SingleR Vignette](https://bioconductor.org/packages/release/bioc/vignettes/SingleR/inst/doc/SingleR.html)
-* Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette: https://satijalab.org/seurat/articles/de_vignette
+* Try the Pseudobulk approach for a dataset that has biological replicates, as described in this [Seurat vignette](https://satijalab.org/seurat/articles/de_vignette)
 * Use `FindMarkers()` to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant `adj-p values` -- *adjust parameters accordingly!* 
 <br>
 Some useful links for performing GSEA analysis:
