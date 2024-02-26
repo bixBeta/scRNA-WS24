@@ -102,7 +102,7 @@ h2 = DimPlot(sobj, group.by = "orig.ident", reduction = "harmony.integrated")
 
 (u1 | u2)  / (h1 | h2)
 ```
-
+![umap-compare](../images/umap.comparison.png)
 
 
 
