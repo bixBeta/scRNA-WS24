@@ -307,6 +307,10 @@ VlnPlot(sobj.filtered, features = c("LYZ","JUNB"), split.by="orig.ident", pt.siz
 RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", idents=1)
 ```
 ![ridge.de](../images/ridge.de.png)
+
+The different visualizations show different aspects of the patterns found with `FindMarkers()`. It can be valuable to look at the dataset in different ways to understand the results. Did you expect the results shown in the Violin Plot, given the FeathrePlot (UMAP view)?
+
+
 <hr>
 
 ## Optional further analyses, guided by Seurat and other vignettes:
