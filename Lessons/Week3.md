@@ -6,12 +6,12 @@ These procedures will help us identify any problems that we may need to correct 
 
 # 1. Import Seurat Object
 
-If you finished the week 2 exercises, most likely you will already have the `sobj.filtered` object in your environment. If for some reason it is not there, you may alternatively re-load it using the readRDS command. The seurat object from exercise2 is available for access at the following path: `/path/to/sobj.filtered` 
+If you finished the week 2 exercises, most likely you will already have the `sobj.filtered` object in your environment. 
 
 Then, let's start by re-plotting the umaps that we obtained from the end of the exercises last week. <br>
 
 ```
-# sobj.filtered <- readRDS("/path/to/sobj.filtered/03_sobj.clustered.RDS") # un-comment this line by removing the '#' symbol from the beginning of this line if you would like to use the seurat object that is provided by BioHPC
+# sobj.filtered 
 
 # Plotting UMAP
 u1 = DimPlot(sobj.filtered, group.by = "seurat_clusters", label = T)
