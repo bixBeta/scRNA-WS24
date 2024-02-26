@@ -304,15 +304,16 @@ RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", ide
 <hr>
 
 ## Optional further analyses, guided by Seurat and other vignettes:
-- Try other methods to generate an integrated dataset, such as
-  -- SCTransform-normalized data (https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets) <br>
-  -- methods other than Harmony
-- Find DE genes between samples within each cluster for each pair of samples. Which clusters have the most DE genes between samples? Which pairs of samples have the most different expression within clusters?
-- Use SingleR to automate cluster identification, [SingleR Vignette](https://bioconductor.org/packages/release/bioc/vignettes/SingleR/inst/doc/SingleR.html)
-- Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette: https://satijalab.org/seurat/articles/de_vignette
-- Use `FindMarkers()` to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant `adj-p values` -- *adjust parameters accordingly!* 
+* Try other methods to generate an integrated dataset, such as
+  + [SCTransform-normalized data](https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets) <br>
+  + Try methods other than Harmony
+* Find DE genes between samples within each cluster for each pair of samples. Which clusters have the most DE genes between samples? Which pairs of samples have the most different expression within clusters?
+* Use SingleR to automate cluster identification, [SingleR Vignette](https://bioconductor.org/packages/release/bioc/vignettes/SingleR/inst/doc/SingleR.html)
+* Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette: https://satijalab.org/seurat/articles/de_vignette
+* Use `FindMarkers()` to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant `adj-p values` -- *adjust parameters accordingly!* 
 <br>
 Some useful links for performing GSEA analysis:
-- [UCell](https://carmonalab.github.io/UCell_demo/UCell_matrix_vignette.html)
-- [VAM](https://rdrr.io/cran/VAM/f/inst/doc/VAM_PBMC3K_LogNormalization.pdf)
-- [FGSEA](https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html)
+
+  * [UCell](https://carmonalab.github.io/UCell_demo/UCell_matrix_vignette.html) <br>
+  * [VAM](https://rdrr.io/cran/VAM/f/inst/doc/VAM_PBMC3K_LogNormalization.pdf) <br>
+  * [FGSEA](https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html)<br>
