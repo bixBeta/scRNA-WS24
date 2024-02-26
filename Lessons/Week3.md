@@ -60,6 +60,8 @@ This suggests that in our data, cells are being clustered by sample. In order to
 
 # 2. Harmony Integration 
 
-In Seurat, the main function that we need to be aware of is `IntegrateLayers()` function. 
+In Seurat, the main function that we will use for integration is the `IntegrateLayers()` function. 
 >[!Tip] 
 Use `?IntegrateLayers` in the console to investigate all the arguments supported by this function.
+The following Seurat Vignette is also a great resource to learn more about [Seurat Integration Analysis.]('https://satijalab.org/seurat/articles/integration_introduction') 
+
