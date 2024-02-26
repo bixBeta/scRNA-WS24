@@ -77,7 +77,15 @@ sobj
 
 # re-join layers after integration ----
 sobj[["RNA"]] <- JoinLayers(sobj[["RNA"]])
+```
 
+In our case it was not necessary to split our seurat object prior to integration. In cases where a user wants to integrate not by sample but rather than some other category, they must split the seurat object layers first using the split function. See [this](https://satijalab.org/seurat/articles/essential_commands#split-layers) for more details. <br>
+
+After integration, we can join all layers together using the JoinLayers function as we did in the previous code chunk (last-line).
+
+
+
+```
 sobj <- FindNeighbors(sobj, reduction = "harmony_pca", dims = 1:50)
 sobj <- FindClusters(sobj, resolution = 0.4, cluster.name = "harmony_clusters")
 sobj <- RunUMAP(sobj, dims = 1:50, reduction = "harmony_pca", reduction.name = "harmony.integrated")
