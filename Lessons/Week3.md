@@ -312,4 +312,7 @@ RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", ide
 - Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette: https://satijalab.org/seurat/articles/de_vignette
 - Use `FindMarkers()` to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant `adj-p values` -- *adjust parameters accordingly!* 
 <br>
-<b>TODO: Could use this example as a guide: <b> https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html
+Some useful links for performing GSEA analysis:
+- [UCell](https://carmonalab.github.io/UCell_demo/UCell_matrix_vignette.html)
+- [VAM](https://rdrr.io/cran/VAM/f/inst/doc/VAM_PBMC3K_LogNormalization.pdf)
+- [FGSEA](https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html)
