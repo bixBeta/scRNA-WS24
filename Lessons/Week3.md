@@ -65,3 +65,56 @@ In Seurat, the main function that we will use for integration is the `IntegrateL
 Use `?IntegrateLayers` in the console to investigate all the arguments supported by this function.
 The following Seurat Vignette is also a great resource to learn more about [Seurat Integration Analysis.](https://satijalab.org/seurat/articles/integration_introduction) 
 
+
+Lets use the following code chunk to perform integration:
+
+```
+sobj <- IntegrateLayers(object = sobj, method = HarmonyIntegration, orig.reduction = "pca", 
+                        new.reduction = "harmony_pca",
+                        verbose = T)
+
+sobj
+
+# re-join layers after integration ----
+sobj[["RNA"]] <- JoinLayers(sobj[["RNA"]])
+
+sobj <- FindNeighbors(sobj, reduction = "harmony_pca", dims = 1:50)
+sobj <- FindClusters(sobj, resolution = 0.4, cluster.name = "harmony_clusters")
+sobj <- RunUMAP(sobj, dims = 1:50, reduction = "harmony_pca", reduction.name = "harmony.integrated")
+
+
+u1 = DimPlot(sobj, group.by = "unintegrated_clusters", label = T, label.size = 7, reduction = "umap.unintegrated")
+u2 = DimPlot(sobj, group.by = "orig.ident",reduction = "umap.unintegrated")
+
+h1 = DimPlot(sobj, group.by = "harmony_clusters", label = T, label.size = 7, reduction = "harmony.integrated")
+h2 = DimPlot(sobj, group.by = "orig.ident", reduction = "harmony.integrated")
+
+(u1 | u2)  / (h1 | h2)
+
+
+
+n_cells <- FetchData(sobj, 
+                     vars = c("unintegrated_clusters", "orig.ident")) %>%
+  dplyr::count(unintegrated_clusters, orig.ident)
+
+n_cells_h <- FetchData(sobj, 
+                      vars = c("harmony_clusters", "orig.ident")) %>%
+  dplyr::count(harmony_clusters, orig.ident)
+
+
+ns1 = ggplot(n_cells, aes(x=unintegrated_clusters, y=n, fill=orig.ident)) +
+  geom_bar(position="stack", stat="identity") + 
+  scale_color_manual(values = c("grey45", "lightblue3", "pink4"), aesthetics = c("colour", "fill")) + theme_linedraw()
+
+ns2 = ggplot(n_cells, aes(x=unintegrated_clusters, y=n, fill=orig.ident)) +
+  geom_bar(position="fill", stat="identity") +
+  scale_color_manual(values = c("grey45", "lightblue3", "pink4"), aesthetics = c("colour", "fill")) + theme_linedraw()
+
+ns_h1 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
+  geom_bar(position="stack", stat="identity") + scale_color_manual(values = c("grey45", "lightblue3", "pink4"), aesthetics = c("colour", "fill")) + theme_linedraw()
+
+ns_h2 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
+  geom_bar(position="fill", stat="identity") + scale_color_manual(values = c("grey45", "lightblue3", "pink4"), aesthetics = c("colour", "fill"))+ theme_linedraw()
+
+(ns1 / ns2) | (ns_h1 / ns_h2)
+```
