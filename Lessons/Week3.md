@@ -105,24 +105,15 @@ h2 = DimPlot(sobj, group.by = "orig.ident", reduction = "harmony.integrated")
 ![umap-compare](../images/umap.comparison.png)
 
 
+From the above UMAP's, we see that in the harmony integrated clusters, we now see a good representation of all samples within all clusters. There are some clusters e.g. cluster 9 and 5 that have rather few cells from Untreated sample, but overall the sample membership in all the other clusters looks much better. 
+
+We can further validate this by looking at the sample proportions per cluster again. Lets use the following code to compute these and plot unintegrated and integrated results side-by-side
 
 ```
-n_cells <- FetchData(sobj, 
-                     vars = c("unintegrated_clusters", "orig.ident")) %>%
-  dplyr::count(unintegrated_clusters, orig.ident)
-
 n_cells_h <- FetchData(sobj, 
                       vars = c("harmony_clusters", "orig.ident")) %>%
   dplyr::count(harmony_clusters, orig.ident)
 
-
-ns1 = ggplot(n_cells, aes(x=unintegrated_clusters, y=n, fill=orig.ident)) +
-  geom_bar(position="stack", stat="identity") + 
-  scale_color_manual(values = c("grey45", "lightblue3", "pink4"), aesthetics = c("colour", "fill")) + theme_linedraw()
-
-ns2 = ggplot(n_cells, aes(x=unintegrated_clusters, y=n, fill=orig.ident)) +
-  geom_bar(position="fill", stat="identity") +
-  scale_color_manual(values = c("grey45", "lightblue3", "pink4"), aesthetics = c("colour", "fill")) + theme_linedraw()
 
 ns_h1 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
   geom_bar(position="stack", stat="identity") + scale_color_manual(values = c("grey45", "lightblue3", "pink4"), aesthetics = c("colour", "fill")) + theme_linedraw()
@@ -132,3 +123,4 @@ ns_h2 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
 
 (ns1 / ns2) | (ns_h1 / ns_h2)
 ```
+![prop-compare](../images/prop.comparison.png)
