@@ -68,22 +68,25 @@ The following Seurat Vignette is also a great resource to learn more about [Seur
 
 Lets use the following code chunk to perform integration:
 
+Note that in our case it is not necessary to split our seurat object prior to integration. In cases where a user wants to integrate not by sample but rather than some other category, they must split the seurat object layers first using the split function. See [this](https://satijalab.org/seurat/articles/essential_commands#split-layers) for more details. <br>
+
+
 ```
 sobj <- IntegrateLayers(object = sobj, method = HarmonyIntegration, orig.reduction = "pca", 
                         new.reduction = "harmony_pca",
                         verbose = T)
+```
 
-sobj
+After applying the integration function, we can join all layers together using the JoinLayers function for further analysis. 
 
+```
 # re-join layers after integration ----
 sobj[["RNA"]] <- JoinLayers(sobj[["RNA"]])
 ```
 
-In our case it was not necessary to split our seurat object prior to integration. In cases where a user wants to integrate not by sample but rather than some other category, they must split the seurat object layers first using the split function. See [this](https://satijalab.org/seurat/articles/essential_commands#split-layers) for more details. <br>
+We can now proceed by running the remaining seurat pipeline as is. We will change some parameters and name them a little differently so we can distinguish between unintegrated and harmony integrated components of the seurat object. 
 
-After integration, we can join all layers together using the JoinLayers function as we did in the previous code chunk (last-line).
-
-
+Let's run the following code chunk to get clustering results using the harmony corrected embeddings. Once we create clusters, lets review them side-by-side. 
 
 ```
 sobj <- FindNeighbors(sobj, reduction = "harmony_pca", dims = 1:50)
@@ -98,9 +101,12 @@ h1 = DimPlot(sobj, group.by = "harmony_clusters", label = T, label.size = 7, red
 h2 = DimPlot(sobj, group.by = "orig.ident", reduction = "harmony.integrated")
 
 (u1 | u2)  / (h1 | h2)
+```
 
 
 
+
+```
 n_cells <- FetchData(sobj, 
                      vars = c("unintegrated_clusters", "orig.ident")) %>%
   dplyr::count(unintegrated_clusters, orig.ident)
