@@ -156,7 +156,7 @@ saveRDS(sobj.filtered , "04_harmony_integrated_res0.4.RDS")
 ```
 
 
-# 2. Differential Gene Expression Analysis with FindMarkers
+# 3. Differential Gene Expression Analysis with FindMarkers
 
 In Seurat, a key function that we will use to determine differences in gene expression between and within clusters is the `FindMarkers()` function. 
 
