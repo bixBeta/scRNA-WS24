@@ -305,9 +305,11 @@ RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", ide
 
 ## Optional further analyses, guided by Seurat and other vignettes:
 - Try other methods to generate an integrated dataset, such as
-  -- SCTransform-normalized data (https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets)
+  -- SCTransform-normalized data (https://satijalab.org/seurat/articles/integration_introduction#perform-integration-with-sctransform-normalized-datasets) <br>
   -- methods other than Harmony
 - Find DE genes between samples within each cluster for each pair of samples. Which clusters have the most DE genes between samples? Which pairs of samples have the most different expression within clusters?
 - Use SingleR to automate cluster identification, [SingleR Vignette](https://bioconductor.org/packages/release/bioc/vignettes/SingleR/inst/doc/SingleR.html)
 - Try the Pseudobulk approach for a dataset that has biological replicates, as described in this vignette: https://satijalab.org/seurat/articles/de_vignette
-- Use FindMarkers() to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant adj-p values -- adjust parameters accordingly! <b>TODO: Could use this example as a guide: <b> https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html
+- Use `FindMarkers()` to generate avg_log2FC values to use in GSEA (gene set enrichment analysis). Note that you will want to retain the results for all expressed genes, not just those with significant `adj-p values` -- *adjust parameters accordingly!* 
+<br>
+<b>TODO: Could use this example as a guide: <b> https://crazyhottommy.github.io/scRNA-seq-workshop-Fall-2019/scRNAseq_workshop_3.html
