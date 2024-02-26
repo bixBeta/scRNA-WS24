@@ -286,15 +286,21 @@ Genes of interest can be vizualized in different ways, grouped/split by clusters
 ```
 # Plot a few top genes in different ways
 # UMAP split by sample
-FeaturePlot(sobj.filtered,features = c("LYZ","JUNB"), split.by="orig.ident")
+FeaturePlot(sobj.filtered,features = c("LYZ","JUNB"), split.by="orig.ident", reduction = "harmony.integrated")
+```
+![feat.de](../images/feature.de.png)
 
+```
 # Violin plot with all clusters, split by sample
 VlnPlot(sobj.filtered,features = c("LYZ","JUNB"), split.by="orig.ident", pt.size=0)
+```
+![violin.de](../images/violin.de.png)
 
-Idents(sobj.filtered) <- sobj.filtered$harmony_clusters
+```
 # Ridge plot comparing samples, just for cells in cluster 1
 RidgePlot(sobj.filtered,features = c("LYZ","JUNB"), group.by = "orig.ident", idents=1)
 ```
+![ridge.de](../images/ridge.de.png)
 <hr>
 
 ## Optional further analyses, guided by Seurat and other vignettes:
