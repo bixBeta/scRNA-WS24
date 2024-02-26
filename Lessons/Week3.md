@@ -84,7 +84,7 @@ After applying the integration function, we can join all layers together using t
 sobj[["RNA"]] <- JoinLayers(sobj[["RNA"]])
 ```
 
-We can now proceed by running the remaining seurat pipeline as is. We will change some parameters and name them a little differently so we can distinguish between unintegrated and harmony integrated components of the seurat object. 
+We can now proceed by running the remaining seurat pipeline as is. We will change some parameters and name them a little differently so we can distinguish between unintegrated and harmony integrated components of the seurat object for future access.  
 
 Let's run the following code chunk to get clustering results using the harmony corrected embeddings. Once we create clusters, lets review them side-by-side. 
 
