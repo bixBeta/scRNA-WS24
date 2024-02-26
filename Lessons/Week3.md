@@ -142,14 +142,20 @@ ns_h2 = ggplot(n_cells_h, aes(x=harmony_clusters, y=n, fill=orig.ident)) +
   <summary> Optional: play with clustering resolution</summary>
   The appropriate number of clusters for a dataset is somewhat subjective. Try playing with the clustering steps to see how the assignment of cells to clusters changes. The most common parameter to vary is the 'resolution` parameter at the FindClusters() step: a higher resolution value should give more total clusters. <br>
   Some tips: <br>
-<b>TODO: fix formatting for the bullet points below</b>
->- Use a new name for the cluster.name parameter, to avoid overwriting the clusters generated with resolution = 0.4
->- You dont need to rerun the RunUMAP() step after rerunning FindClusters(), because the UMAP projection does not change
->- FindClusters() will save the new cluster values to the `seurat_clusters` metadata slot, as well as in the new `cluster.name` slot
->- You can define the cluster identities to use in following steps with the Idents() function 
+
+  * Use a new name for the cluster.name parameter, to avoid overwriting the clusters generated with `resolution = 0.4`
+  * You dont need to rerun the RunUMAP() step after rerunning `FindClusters()`, because the UMAP projection does not change
+  * `FindClusters()` will save the new cluster values to the `seurat_clusters` metadata slot, as well as in the new `cluster.name` slot
+  * You can define the cluster identities to use in following steps with the `Idents()` function 
+
 </details>
 
-### TODO: save object!
+Lets save our integrated seurat object to file for future use/access:
+
+```
+saveRDS(sobj.filtered , "04_harmony_integrated_res0.4.RDS")
+```
+
 
 # 2. Differential Gene Expression Analysis with FindMarkers
 
@@ -197,9 +203,9 @@ Count the number of marker genes per cluster with avg_log2FC > 1:
 ```
 # Determine the number of marker genes per cluster with with avg_log2FC > 1
 sobj.markers %>%
-+   group_by(cluster) %>%
-+   dplyr::filter(avg_log2FC > 1) %>%
-+   dplyr::count(cluster)
+   group_by(cluster) %>%
+   dplyr::filter(avg_log2FC > 1 & p_val_adj < 0.05) %>%
+   dplyr::count(cluster)
 ```
 Which shows there are hundreds to thousands of genes with differential expression among clusters:
 ```
@@ -207,31 +213,29 @@ Which shows there are hundreds to thousands of genes with differential expressio
 # Groups:   cluster [18]
    cluster     n
    <fct>   <int>
- 1 0         521
- 2 1         260
- 3 2         306
- 4 3         475
- 5 4         579
+ 1 0         464
+ 2 1         255
+ 3 2         297
+ 4 3         434
+ 5 4         543
  6 5        4055
- 7 6         697
- 8 7         239
- 9 8        1973
-10 9        3222
-11 10        279
-12 11        533
-13 12        911
-14 13         30
-15 14        618
-16 15        555
-17 16        384
-18 17       3445
+ 7 6         571
+ 8 7         166
+ 9 8        1796
+10 9        2505
+11 10         88
+12 11        363
+13 12        607
+14 13         23
+15 14        290
+16 15        292
+17 16        182
+18 17       2522
 ```
 
 These results can be saved and/or written to a file:
 ```
-#TODO: saveRDS()
-#TODO: add write `sobj.markers` to file
-
+write.csv(sobj.markers, "sobj.markers.csv", quote=F)
 ```
 
 And marker genes of interest can be visualized on the UMAP:
@@ -243,10 +247,10 @@ FeaturePlot(sobj.filtered,features = c("NKG7","CCR7","IKZF2","KLRD1","MS4A1","DO
 ![featurePlot](../images/featurePlot.png)
 
 Or in a dot plot:
+
 ```
-#TODO: get 5 top marker genes by avg_log2fc per cluster and generate a bubble/dot plot
 # Example based on Seurat vignette
-# TODO: make list of unique geneIDs only!
+
 sobj.markers %>%
      group_by(cluster) %>%
      dplyr::filter(avg_log2FC > 1 & p_val_adj < 0.05) %>%
@@ -254,16 +258,13 @@ sobj.markers %>%
        slice_head(n = 5) %>%
        ungroup() -> top5
 
-# TODO use list of unique geneIDs, this gives errors!
-DotPlot(sobj.filtered, features = top5$gene) +
+DotPlot(sobj.filtered, features = unique(top5$gene)) +
   RotatedAxis()
 
 ```
-Or in a  heatmap:
-```
-# Note this may be very slow!
-DoHeatmap(filtered, features = top5$gene) + NoLegend()
-```
+![dotPlot](../images/dotplot.png)
+
+
 
 Next, we will use one cluster as an example of finding genes that are differentially expressed between samples and within a cell type. Again we use FindMarkers(), but this time defining the sets of cells to compare using orig.ident:
 ```
