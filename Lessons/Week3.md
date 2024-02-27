@@ -272,8 +272,8 @@ DotPlot(sobj.filtered, features = unique(top5$gene)) +
 Or in a heatmap:
 
 ```
-# Heatmap of top 5 marker genes per cluster, downsampled to 5000 cells to speed up the visualization
-DoHeatmap(sobj.filtered, features = unique(top5$gene), ncells = 5000, size = 10 ) + NoLegend()
+# Heatmap of top 5 marker genes per cluster
+DoHeatmap(sobj.filtered, features = unique(top5$gene), size = 10 ) + NoLegend()
 ```
 
 ![heatmap](../images/heatmap.png)
