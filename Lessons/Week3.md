@@ -273,7 +273,8 @@ Or in a heatmap:
 
 ```
 # Heatmap of top 5 marker genes per cluster
-DoHeatmap(sobj.filtered, features = unique(top5$gene), size = 10 ) + NoLegend()
+# Our server has limitations on graphical memory so we will downsample the sobj to 500 cells per cluster 
+DoHeatmap(subset(sobj.filtered, downsample=500), features = unique(top5$gene), size = 10 ) + NoLegend()
 ```
 
 ![heatmap](../images/heatmap.png)
