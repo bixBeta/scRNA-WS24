@@ -1,4 +1,4 @@
-# This is Dockerfile used to build scrna2024 image
+# This is Dockerfile used to build scrna2024 image used in Week 4
 # command to build is:
 
 # docker1 build -f Dockerfile -t scrna2024 `pwd`
