@@ -88,5 +88,8 @@ After you run this command, it may look like the terminal hangs there. That is o
  </details>
 
 ### 6. Now you should be in jupyter!
-You should see your files in the left-side pane (assuming folder icon on upper-right is chosen). You can navigate to 
+You should see your files in the left-side pane (assuming folder icon on upper-right is chosen). You can navigate to the scRNA-WS24/Lessons directory, and double-click on the Week4-scanpy.ipynb file to start working through the jupyter notebook. 
+
+### 7. Claim files when finished
+Because it is running in docker, the files created by the notebook will not belong to you on the server. From the server, you can execute the command `docker1 claim` to 'claim' the files and fix the permissions.
 
