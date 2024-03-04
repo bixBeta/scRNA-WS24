@@ -7,4 +7,5 @@ Use the following links to navigate to Exercise pages for `Week1`, `Week2` and `
 - [Week 1](Lessons/Week1.md)
 - [Week 2](Lessons/Week2.md)
 - [Week 3](Lessons/Week3.md)
+- [Week 4](Lessons/Week4.md)
 
