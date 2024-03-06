@@ -5,11 +5,11 @@ This usually comes in handy when dealing with scRNA-seq data outside of the seur
 To convert a seurat object that is created using seurat v5 or above, please use the following guidleine to properly create the sce data class object within R. 
 
 
-First we create a downgraded assay3 of assay class using our assay5 seurat object. <br>
+First we create a downgraded assay class within our seurat object. <br>
 
 > assay3 structure was used in older versions of seurat and does not support layers.
 
-Let's first create a new assay named `RNA3` in our seurat object. 
+To achieve this, let us first create a new assay named `RNA3` in our seurat object. 
 
 ```
 library(Seurat)
