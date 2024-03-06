@@ -9,3 +9,9 @@ Use the following links to navigate to Exercise pages for `Week1`, `Week2`, `Wee
 - [Week 3](Lessons/Week3.md) Faraz
 - [Week 4](Lessons/Week4.md) Melissa
 
+<hr>
+
+## Additional Resources/Exercises
+
+Use loupeR package to load seurat objects into 10x Loupe Browser 7  [loupeR](Lessons/loupe.md)
+Convert seurat objects to SingleCellExperiment Class [sce](Lessons/sce.md)
