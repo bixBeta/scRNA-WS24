@@ -17,7 +17,7 @@ library(SeuratWrappers)
 
 # create a v3 assay and change the default assay to RNA3
 sobj[["RNA3"]] <- as(sobj[["RNA"]], Class = "Assay")
-DefaultAssay(sobj.sample) <- "RNA3"
+DefaultAssay(sobj) <- "RNA3"
 ```
 
 In the above chunk when we specify Class = "Assay", the conversion of our assay object happens in a manner that is backwards compatible with older versions of seurat. <br>
