@@ -16,13 +16,14 @@ The count matrices produced by cellranger are located in the `./sampleName/outs/
 
 
 # Connect and set up the Rstudio environment
+1) ssh to Linux shell of the server cbsumma11. Run this command: /programs/rstudio_server/mv_dir. This command would create a Rstudio cach directory on the server.
+ 
+2)	Update this link to match the server number (##) assigned to you: 
+http://cbsumma11.biohpc.cornell.edu:8016 
 
-1)	Update this link to match the server number (##) assigned to you: 
-http://cbsumma##.biohpc.cornell.edu:8016 
+3)	Paste the link into a web browser. You should connect to an Rstudio login page.
 
-2)	Paste the link into a web browser. You should connect to an Rstudio login page.
-
-3)	Login with your BioHPC credentials (same login as connecting to the server). 
+4)	Login with your BioHPC credentials (same login as connecting to the server). 
 
 <details>
 <summary>New to Rstudio? Read this first...
@@ -39,7 +40,7 @@ Build code in the Rscript panel, adding #comments (preceded by the `#` symbol) t
 </details>
 
 
-4) Before we get started, we must set up a working directory where all of our Seurat outputs will be stored. To do this we can use `mkdir` and `setwd` functions. 
+5) Before we get started, we must set up a working directory where all of our Seurat outputs will be stored. To do this we can use `mkdir` and `setwd` functions. 
 In the R console (bottom left panel), type the following code:
 
 *Please replace `userID` with your BioHPC UserID before running the code*
@@ -63,7 +64,7 @@ setwd("/workdir/userID/Seurat")
 <i>Alternatively, you can use the 'Files' tab in the lower right panel to navigate to the new `Seurat` directory and then the 'More' menu to `Set As Working Directory`.</i>
 </details>
 
-5) Create a new R script using the top menu: File --> New File --> Rscript or Shift/Cmd|Ctrl/N. This will create a new file in the upper left panel where you can build your code, before running it in the console panel.
+6) Create a new R script using the top menu: File --> New File --> Rscript or Shift/Cmd|Ctrl/N. This will create a new file in the upper left panel where you can build your code, before running it in the console panel.
    Please make sure to save this script periodically using `Cmd|Ctrl+S`. 
 
 > [!Tip]
